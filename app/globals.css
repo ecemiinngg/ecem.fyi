@@ -271,6 +271,131 @@ body {
   animation: coder-float 4.5s ease-in-out infinite;
 }
 
+/* ─ FitAI embed (components/projects/virtual-try-on.tsx) ─
+   Scoped under .fitai-embed so its variables/classes never touch the
+   site's own theme tokens (e.g. --accent, --border, --card, .card). */
+.fitai-embed {
+  --bg: #0a0a0f;
+  --surface: #13131a;
+  --surface2: #1c1c26;
+  --border: #2a2a38;
+  --border-hover: #4a4a64;
+  --text: #f0f0f8;
+  --text-muted: #7070a0;
+  --text-dim: #4a4a68;
+  --accent: #7c5cfc;
+  --accent-light: #9b7eff;
+  --accent-glow: rgba(124, 92, 252, 0.25);
+  --success: #22c55e;
+  --error: #ef4444;
+  color: var(--text);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.fitai-embed *,
+.fitai-embed *::before,
+.fitai-embed *::after {
+  box-sizing: border-box;
+}
+
+.fitai-embed ::-webkit-scrollbar { width: 4px; }
+.fitai-embed ::-webkit-scrollbar-track { background: transparent; }
+.fitai-embed ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+@keyframes fitai-fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fitai-fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fitai-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes fitai-pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50%       { box-shadow: 0 0 32px 8px var(--accent-glow); }
+}
+@keyframes fitai-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes fitai-resultReveal {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.fitai-embed .animate-fade-up    { animation: fitai-fadeUp 0.5s cubic-bezier(.22,1,.36,1) both; }
+.fitai-embed .animate-fade-in    { animation: fitai-fadeIn 0.4s ease both; }
+.fitai-embed .animate-spin       { animation: fitai-spin 0.8s linear infinite; }
+.fitai-embed .animate-pulse-glow { animation: fitai-pulseGlow 2s ease-in-out infinite; }
+.fitai-embed .animate-float      { animation: fitai-float 3s ease-in-out infinite; }
+.fitai-embed .animate-result     { animation: fitai-resultReveal 0.6s cubic-bezier(.22,1,.36,1) both; }
+
+.fitai-embed .drop-zone {
+  border: 2px dashed var(--border);
+  border-radius: 16px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.fitai-embed .drop-zone:hover,
+.fitai-embed .drop-zone.drag-over {
+  border-color: var(--accent);
+  background: rgba(124, 92, 252, 0.05);
+}
+
+.fitai-embed .step-pill {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  font-size: 13px; font-weight: 500; transition: all 0.3s;
+}
+.fitai-embed .step-pill.active { background: var(--accent-glow); border: 1px solid var(--accent); color: var(--accent-light); }
+.fitai-embed .step-pill.done   { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: var(--success); }
+.fitai-embed .step-pill.idle   { background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); }
+
+.fitai-embed .btn-primary {
+  position: relative; display: inline-flex; align-items: center;
+  justify-content: center; gap: 10px; padding: 16px 40px;
+  border-radius: 14px; font-size: 17px; font-weight: 700;
+  color: #fff; background: linear-gradient(135deg, #7c5cfc, #a855f7);
+  border: none; cursor: pointer; overflow: hidden;
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+}
+.fitai-embed .btn-primary::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
+  opacity: 0; transition: opacity 0.2s;
+}
+.fitai-embed .btn-primary:hover:not(:disabled)::before { opacity: 1; }
+.fitai-embed .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 40px var(--accent-glow); }
+.fitai-embed .btn-primary:active:not(:disabled) { transform: translateY(0); }
+.fitai-embed .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.fitai-embed .btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 12px 28px; border-radius: 12px;
+  font-size: 15px; font-weight: 600; color: var(--text-muted);
+  background: var(--surface2); border: 1px solid var(--border);
+  cursor: pointer; transition: all 0.2s; text-decoration: none;
+}
+.fitai-embed .btn-secondary:hover { color: var(--text); border-color: var(--border-hover); background: var(--surface); }
+
+.fitai-embed .card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; overflow: hidden; transition: border-color 0.2s;
+}
+.fitai-embed .card:focus-within { border-color: var(--border-hover); }
+
+.fitai-embed .input-field {
+  width: 100%; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 16px; font-size: 15px;
+  color: var(--text); outline: none; font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.fitai-embed .input-field::placeholder { color: var(--text-dim); }
+.fitai-embed .input-field:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+
 .coder-ground {
   position: absolute;
   left: 50%;

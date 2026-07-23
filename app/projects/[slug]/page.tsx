@@ -5,6 +5,8 @@ import { ArrowLeft, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
+import PlayableEmbed from "@/components/projects/playable-embed";
+import { hasPlayableEmbed } from "@/lib/playable-embeds";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -89,6 +91,13 @@ export default async function ProjectDetailPage({
           {project.description}
         </p>
       </div>
+
+      {hasPlayableEmbed(project.slug) && (
+        <div className="mb-10">
+          <h2 className="mb-4 text-lg font-semibold">Try it</h2>
+          <PlayableEmbed slug={project.slug} />
+        </div>
+      )}
 
       <h2 className="mb-4 text-lg font-semibold">Highlights</h2>
       <ul className="space-y-3">

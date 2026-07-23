@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { GithubIcon } from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
 
@@ -50,13 +51,38 @@ export default async function ProjectDetailPage({
         {project.summary}
       </p>
 
-      <div className="mb-10 flex flex-wrap gap-2">
+      <div className="mb-6 flex flex-wrap gap-2">
         {project.stack.map((tech) => (
           <Badge key={tech} className="border-accent/30 text-accent">
             {tech}
           </Badge>
         ))}
       </div>
+
+      {(project.liveUrl || project.repoUrl) && (
+        <div className="mb-10 flex flex-wrap gap-4">
+          {project.liveUrl && (
+            <Link
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm text-accent transition-colors hover:text-accent-3"
+            >
+              Live demo <ArrowUpRight className="h-3.5 w-3.5" />
+            </Link>
+          )}
+          {project.repoUrl && (
+            <Link
+              href={project.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-accent"
+            >
+              <GithubIcon className="h-3.5 w-3.5" /> View source
+            </Link>
+          )}
+        </div>
+      )}
 
       <div className="pixel-panel mb-10 rounded-md p-6 sm:p-8">
         <p className="leading-relaxed text-foreground/90">

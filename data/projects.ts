@@ -7,7 +7,8 @@ export interface Project {
   year: string;
   role: string;
   highlights: string[];
-  href?: string;
+  liveUrl?: string;
+  repoUrl?: string;
   featured?: boolean;
 }
 
@@ -74,5 +75,41 @@ export const projects: Project[] = [
       "Caught 3 schema-breaking upstream changes before they hit production dashboards",
       "Reduced mean time-to-detection for pipeline failures from ~18h to under 30min",
     ],
+  },
+  {
+    slug: "battle-city-tank-game",
+    title: "Battle City — Retro Tank Game",
+    summary:
+      "A from-scratch Battle City (NES, 1985) clone built on pure HTML5 Canvas — no game engine — with a 6-agent modular architecture.",
+    description:
+      "Rebuilt the classic Battle City from the ground up on raw HTML5 Canvas: destructible brick/steel terrain, water and ice tiles, a 4-tier tank upgrade system, 6 power-up types, and 8 handcrafted levels with escalating enemy composition. The codebase is split into 6 focused modules (input, physics, rendering, enemy AI, audio, level loading) instead of one monolithic game loop.",
+    stack: ["HTML5 Canvas", "TypeScript", "Next.js"],
+    year: "2026",
+    role: "Developer",
+    highlights: [
+      "Zero external game engine or physics library — custom collision, movement, and render loop",
+      "Destructible terrain with per-sub-cell brick damage (2×2 cells per block)",
+      "8 handcrafted levels with a progressive tank upgrade and power-up system",
+    ],
+    liveUrl: "https://ecemiinngg.github.io/tank_game/",
+    repoUrl: "https://github.com/ecemiinngg/tank_game",
+  },
+  {
+    slug: "fitai-virtual-try-on",
+    title: "FitAI — AI Virtual Try-On",
+    summary:
+      "An AI-powered virtual fitting room that lets shoppers see clothing on themselves before buying, with a full DataLayer event schema for the try-on funnel.",
+    description:
+      "Built a virtual try-on flow where a shopper pastes a product URL or uploads a photo, adds a profile photo with height/weight, and gets a personalized AI-generated try-on rendered in 8–12 seconds. Instrumented the entire funnel as a proper analytics event schema — product input method, try-on clicks, generation success rate, and regenerate clicks — and designed the photo-handling flow to be KVKK/GDPR-compliant, purging uploaded images at session end.",
+    stack: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS"],
+    year: "2026",
+    role: "Developer",
+    highlights: [
+      "Designed the full try-on funnel DataLayer schema (product_input_method, try_on_click, generation_success_rate, regenerate_click)",
+      "KVKK/GDPR-compliant by design — uploaded photos are purged at session end",
+      "Mobile-first flow for a URL-paste-or-upload → try-on experience",
+    ],
+    liveUrl: "https://virtualtryon-indol.vercel.app",
+    repoUrl: "https://github.com/ecemiinngg/virtual_try_on",
   },
 ];

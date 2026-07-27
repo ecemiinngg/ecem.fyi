@@ -16,6 +16,118 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "google-ip-address-ad-measurement-europe",
+    title:
+      "Google Starts Using IP Addresses for Ad Measurement in Europe: How the August 3 Change Affects Your GA4 and GTM Setup",
+    excerpt:
+      "Google is expanding what it uses EEA, UK, and Swiss IP addresses for — from routing traffic to identifying devices and personalizing ads. A purpose change that lands squarely on your consent setup.",
+    category: "Tag Management",
+    date: "2026-07-27",
+    readTime: "5 min",
+    content: `
+Today's topic sits right in your lane: measurement + consent + Google Ads +
+GA4, and there's a hard date on the calendar — **August 3, 2026**. This isn't a
+"rolling out sometime" update, it's a "goes live in three weeks" one.
+
+On June 17, 2026, Google sent an email to advertisers and AdSense publishers.
+The subject line looked routine, the content wasn't: Google announced that it
+will start using **IP addresses** from users in the EEA (European Economic
+Area), the UK, and Switzerland for ad measurement and personalization.
+
+Let's clear up one thing first: Google **already** receives your IP address.
+It's attached to every HTTP request, every SDK call, every tag fire. What's
+changing is the **purpose**. Up until now, that address has been used for
+traffic routing and ad delivery. After August 3, the same address will also be
+used to identify devices, measure performance, and personalize ads. And since
+an IP address is classified as personal data under GDPR, that small shift in
+purpose is actually a big consent issue.
+
+## So what exactly is changing?
+
+Three things, in short:
+
+1. **The purpose is expanding:** IP addresses will no longer be used only to
+   "route traffic" — they'll now also be used to "recognize this device and
+   personalize the ad accordingly."
+2. **A new TCF registration is coming:** Google will register under IAB
+   Europe's Transparency and Consent Framework for **Feature 3** ("identify
+   devices based on information transmitted automatically"). This isn't a
+   consent step by itself, but it's tied to personalization purposes — and
+   those purposes require **explicit consent**, not legitimate interest.
+3. **PETs are the backing story:** Google is framing this around
+   privacy-enhancing technologies — on-device processing, trusted execution
+   environments, secure multi-party computation. But some personalization
+   features won't ship immediately; expect a rollout stretching into late 2026
+   or early 2027.
+
+## Good news or bad news? A bit of both
+
+On the measurement side, it's genuinely useful. In a cookieless world,
+measurement accuracy has been eroding — Safari's ITP, Firefox's ETP, rising
+consent-denial rates. An IP-based signal can plug part of that gap. For Google
+Ads and GA4, it means an extra signal layer for conversion modeling — in
+theory, less modeled (estimated) data and more observed data.
+
+The catch: Google reversed its own anti-fingerprinting stance back in December
+2024, and the UK's ICO already called that reversal "irresponsible." Now the
+ICO is advising the UK government in the opposite direction — that consent
+should remain mandatory for cross-service profiling. So Google is moving one
+way while the regulator is pointing the other — which means added regulatory
+risk down the line.
+
+In short: good for measurement in the short term, but carrying real regulatory
+risk in the medium-to-long term.
+
+## The real problem I keep seeing in practice: consent infrastructure isn't ready
+
+Whenever news like this drops, the first practical question is: "Okay, but does
+my CMP even support this correctly?" And the honest answer is: most setups
+don't process the TCF Feature 3 signal properly yet.
+
+A lot of publishers and advertisers already missed the **TCF v2.3 migration
+deadline** back in February 2026 and are still sending the old string format.
+Now there's a Feature 3 registration stacked on top of that. The result: if
+your CMP isn't up to date, Google can't use the data for personalization **even
+if the user consents** — because the signal simply isn't arriving correctly.
+Technical debt turns directly into lost revenue here.
+
+## What can you actually do about it?
+
+- **Audit your CMP:** Check whether your TCF string supports Feature 3. Most
+  major CMP providers (OneTrust, Usercentrics, Cookiebot, etc.) have already
+  shipped or are about to ship an update — check their release notes.
+- **Re-test consent mode in GTM:** Confirm that \`ad_personalization\`,
+  \`ad_user_data\`, and \`ad_storage\` signals correctly transition from
+  "denied" to "granted" in GTM Preview. You're probably already doing this, but
+  it's worth adding a Feature 3-specific regression test now.
+- **If you're on server-side tagging:** Revisit where and how you're
+  masking/processing the IP address inside your server container. The purpose
+  change means you need to re-ask "what am I actually using this data for" in
+  your server-side pipeline too.
+- **Sync with legal/privacy:** This is a technical trigger, but the outcome is
+  a compliance risk. "We just implemented the tag" won't hold up as a defense
+  anymore — the purpose change needs to be documented on the business side.
+- **For publishers on AdSense/Ad Manager/AdMob:** August 3 is a hard
+  operational deadline. If your consent flow isn't updated, your users fall
+  outside the expanded targeting — and so does any upside in revenue that comes
+  with it.
+
+## What this means if you work in measurement/tagging
+
+If you already have a solid GA4 + GTM + Consent Mode setup, this news isn't
+"extra work" for you — it's your existing consent architecture getting a fresh
+stress test. A CMP that supports Feature 3, paired with correctly configured
+consent mode, means you benefit from this change without lifting a finger. If
+you're missing either piece, you'll watch the gap in modeled data widen come
+August.
+
+My suggestion: put a "consent audit" on this week's list. Walk through your TCF
+string, your GTM consent signals, and your server-side IP handling logic on a
+single checklist. You've got three weeks until August 3 — that's just enough
+time.
+`,
+  },
+  {
     slug: "server-side-gtm-first-party-data",
     title: "Server-Side GTM: Reclaiming First-Party Data in a Cookieless World",
     excerpt:

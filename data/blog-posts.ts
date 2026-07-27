@@ -27,7 +27,7 @@ export const blogPosts: BlogPost[] = [
     content: `
 Today's topic sits right in your lane: measurement + consent + Google Ads +
 GA4, and there's a hard date on the calendar — **August 3, 2026**. This isn't a
-"rolling out sometime" update, it's a "goes live in three weeks" one.
+"rolling out sometime" update, it's a "goes live next week" one.
 
 On June 17, 2026, Google sent an email to advertisers and AdSense publishers.
 The subject line looked routine, the content wasn't: Google announced that it
@@ -123,8 +123,8 @@ August.
 
 My suggestion: put a "consent audit" on this week's list. Walk through your TCF
 string, your GTM consent signals, and your server-side IP handling logic on a
-single checklist. You've got three weeks until August 3 — that's just enough
-time.
+single checklist. You've got a week until August 3 — that's just enough time,
+but only if you start now.
 `,
   },
   {

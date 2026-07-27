@@ -4,7 +4,7 @@ import SandboxExperience from "@/components/sandbox/sandbox-experience";
 import DataLayerDebugger from "@/components/sandbox/datalayer-debugger";
 
 export const metadata: Metadata = {
-  title: "DataLayer Sandbox | Ecem Aç",
+  title: "DataLayer Sandbox",
   description:
     "A live ecommerce flow wired to a real dataLayer.push() debugger — view_item_list, add_to_cart, begin_checkout, purchase.",
 };

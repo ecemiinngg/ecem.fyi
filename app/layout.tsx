@@ -28,7 +28,13 @@ const pressStart = Press_Start_2P({
 });
 
 export const metadata: Metadata = {
-  title: "Ecem Aç | Data & Analytics Engineer",
+  title: {
+    // Used by the homepage, which shares this route segment and so isn't
+    // covered by `template`.
+    default: "ecem.fyi | Data & Analytics Engineer",
+    // Child segments set a bare title and get the suffix appended.
+    template: "%s | ecem.fyi",
+  },
   description:
     "Portfolio and interactive server-side tracking sandbox — data, analytics, and tag management projects and writing.",
 };

@@ -3,7 +3,7 @@ import BlogExplorer from "./blog-explorer";
 import { blogCategories, blogPosts } from "@/data/blog-posts";
 
 export const metadata: Metadata = {
-  title: "Blog | Ecem Aç",
+  title: "Blog",
   description:
     "Writing on analytics, server-side tracking, tag management, and data engineering.",
 };

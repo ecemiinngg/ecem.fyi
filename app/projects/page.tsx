@@ -4,7 +4,7 @@ import FadeIn from "@/components/fade-in";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
-  title: "Projects | Ecem Aç",
+  title: "Projects",
   description:
     "Analytics engineering, server-side tracking, and data pipeline projects.",
 };

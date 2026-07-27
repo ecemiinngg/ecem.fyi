@@ -20,7 +20,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
-  return { title: `${project.title} | Ecem Aç`, description: project.summary };
+  return { title: project.title, description: project.summary };
 }
 
 export default async function ProjectDetailPage({

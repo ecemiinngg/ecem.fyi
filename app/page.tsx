@@ -47,7 +47,7 @@ export default function Home() {
               </div>
               <div className="mt-10 flex items-center gap-5">
                 <Link
-                  href="https://github.com"
+                  href="https://github.com/ecemiinngg"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
@@ -55,7 +55,7 @@ export default function Home() {
                   <GithubIcon className="h-4 w-4" /> GitHub
                 </Link>
                 <Link
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/ecembircan/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"

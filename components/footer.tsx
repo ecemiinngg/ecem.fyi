@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
 
 export default function Footer() {
@@ -9,7 +8,7 @@ export default function Footer() {
         <p>© {new Date().getFullYear()} ecem.fyi — Data & Analytics Engineer</p>
         <div className="flex items-center gap-4">
           <Link
-            href="https://github.com"
+            href="https://github.com/ecemiinngg"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors hover:text-accent"
@@ -18,20 +17,13 @@ export default function Footer() {
             <GithubIcon className="h-4 w-4" />
           </Link>
           <Link
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/ecembircan/"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors hover:text-accent"
             aria-label="LinkedIn"
           >
             <LinkedinIcon className="h-4 w-4" />
-          </Link>
-          <Link
-            href="mailto:hello@ecem.fyi"
-            className="transition-colors hover:text-accent"
-            aria-label="Email"
-          >
-            <Mail className="h-4 w-4" />
           </Link>
         </div>
       </div>

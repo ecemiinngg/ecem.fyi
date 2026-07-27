@@ -3,7 +3,6 @@ import { Inter, JetBrains_Mono, Bungee, Press_Start_2P } from "next/font/google"
 import { GoogleTagManager } from "@next/third-parties/google";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
-import SiteGate from "@/components/game/site-gate";
 import "./globals.css";
 
 const inter = Inter({
@@ -54,11 +53,9 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        <SiteGate>
-          <Nav />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </SiteGate>
+        <Nav />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );

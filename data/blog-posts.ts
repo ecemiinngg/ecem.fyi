@@ -16,6 +16,104 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "ga4-source-group-dimension",
+    title: "GA4 Source Group Dimension — Finally, Clean Social Attribution",
+    excerpt:
+      "GA4's new Source Group dimension collapses facebook, fb, m.facebook.com and friends into one clean row — retroactively, with zero implementation work. Here's what it does and where it still falls short.",
+    category: "Analytics",
+    date: "2026-07-28",
+    readTime: "5 min",
+    content: `
+You know that moment when a client asks "how did Facebook perform this month?"
+and you open GA4 to find their Facebook traffic split across \`facebook\`,
+\`fb\`, \`m.facebook.com\`, \`l.facebook.com\`, and \`Meta-facebook\`?
+
+Yeah. Google finally fixed that.
+
+## What is Source Group?
+
+On June 11, 2026, Google rolled out a new dimension called **Source Group** in
+GA4. It automatically consolidates all those messy referral string variations
+into a single clean platform name.
+
+So instead of five rows of fragmented Facebook data, you get one row:
+**Facebook**. Same for Instagram, TikTok, and — here's the interesting part —
+ChatGPT and Perplexity are included too.
+
+## How is it different from Source Platform?
+
+This is the key distinction people are missing:
+
+- **Source Group** = the originating platform (Instagram, Facebook, TikTok).
+  Combines paid **and** organic.
+- **Source Platform** = the ad-buying ecosystem (Meta Ads, Google Ads). Only
+  applies to paid traffic.
+
+Together, they let you split paid vs. organic without building custom regex
+channel groupings. That's huge.
+
+## The good news
+
+- **It's retroactive.** Unlike the AI Assistant channel grouping from May 2026,
+  Source Group applies to your historical data. Year-over-year comparisons
+  don't break.
+- **Zero implementation work.** No tag changes, no property configuration. It
+  just appears.
+- **AI traffic is included.** ChatGPT and Perplexity referrals get consolidated
+  too, which is increasingly important as AI-driven traffic grows.
+
+## The not-so-good news
+
+As of July 8, 2026, Google clarified that Source Group is currently restricted
+to the **Advertising workspace** (specifically the Conversion performance
+report). It's **not** available yet in standard Traffic Acquisition reports.
+
+Also, organic traffic actively shows as \`(unlabeled)\` in the related Source
+Platform dimension. If you're building reports that combine Source Group with
+Source Platform, you'll hit some unexpected blanks.
+
+## What should you do?
+
+1. **Check if it's rolled out to your property.** The deployment is gradual. If
+   you don't see Source Group as an available dimension, wait a few days.
+2. **Review your custom channel groupings.** If you built regex-based groupings
+   to consolidate social sources, Source Group might replace some of that
+   manual work. Don't delete your custom setup yet — but start comparing
+   outputs.
+3. **Watch for the standard reports rollout.** Right now it's Advertising
+   workspace only. Google hasn't given a timeline for broader availability.
+4. **Combine it with the AI Assistant channel.** Source Group consolidates the
+   referral strings; the AI Assistant default channel (rolled out May 13)
+   categorizes chatbot traffic. Together they give you a much cleaner picture
+   of AI-driven visits.
+
+## Quick SQL tip (BigQuery export)
+
+If you're working with the GA4 BigQuery export and want to simulate Source
+Group logic before it fully rolls out in all reports:
+
+\`\`\`sql
+SELECT
+  CASE
+    WHEN LOWER(traffic_source.source) IN ('facebook', 'fb', 'm.facebook.com', 'l.facebook.com') THEN 'Facebook'
+    WHEN LOWER(traffic_source.source) IN ('instagram', 'ig', 'l.instagram.com') THEN 'Instagram'
+    WHEN LOWER(traffic_source.source) IN ('tiktok', 'tiktok.com', 'www.tiktok.com') THEN 'TikTok'
+    WHEN LOWER(traffic_source.source) IN ('chatgpt.com', 'chat.openai.com') THEN 'ChatGPT'
+    ELSE traffic_source.source
+  END AS source_group,
+  COUNT(DISTINCT user_pseudo_id) AS users,
+  SUM(ecommerce.purchase_revenue) AS revenue
+FROM \`project.dataset.events_*\`
+WHERE _TABLE_SUFFIX BETWEEN '20260601' AND '20260731'
+GROUP BY 1
+ORDER BY 3 DESC
+\`\`\`
+
+This gives you a quick workaround while you wait for full rollout in
+Explorations.
+`,
+  },
+  {
     slug: "google-ip-address-ad-measurement-europe",
     title:
       "Google Starts Using IP Addresses for Ad Measurement in Europe: How the August 3 Change Affects Your GA4 and GTM Setup",

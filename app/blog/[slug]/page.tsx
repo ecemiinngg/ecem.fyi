@@ -4,7 +4,29 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import SqlEditor from "@/components/blog/sql-editor";
 import { blogPosts } from "@/data/blog-posts";
+
+/** A ```sql fence arrives as <pre><code class="language-sql">. Route those to
+ *  the interactive editor and leave every other fence as a plain block. */
+function preRenderer(props: React.ComponentProps<"pre">) {
+  const child = props.children as React.ReactElement<{
+    className?: string;
+    children?: React.ReactNode;
+  }> | undefined;
+  const lang = child?.props?.className ?? "";
+  const source = child?.props?.children;
+
+  if (lang.includes("language-sql") && typeof source === "string") {
+    return <SqlEditor code={source} />;
+  }
+  return (
+    <pre
+      className="mb-6 overflow-x-auto rounded-xl border border-border bg-background-alt p-4 font-mono text-sm [&_code]:bg-transparent [&_code]:p-0 [&_code]:text-foreground"
+      {...props}
+    />
+  );
+}
 
 const mdxComponents = {
   h2: (props: React.ComponentProps<"h2">) => (
@@ -37,12 +59,7 @@ const mdxComponents = {
       {...props}
     />
   ),
-  pre: (props: React.ComponentProps<"pre">) => (
-    <pre
-      className="mb-6 overflow-x-auto rounded-xl border border-border bg-background-alt p-4 font-mono text-sm [&_code]:bg-transparent [&_code]:p-0 [&_code]:text-foreground"
-      {...props}
-    />
-  ),
+  pre: preRenderer,
 };
 
 export function generateStaticParams() {

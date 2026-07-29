@@ -2,7 +2,8 @@ export type BlogCategory =
   | "Analytics"
   | "Server-Side Tracking"
   | "Tag Management"
-  | "Data Engineering";
+  | "Data Engineering"
+  | "Paid Media";
 
 export interface BlogPost {
   slug: string;
@@ -15,6 +16,158 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "google-ads-tcpa-troas-bidding-change",
+    title:
+      "Google Ads' Quiet Revolution: Why Your tCPA/tROAS Campaigns Might Suddenly \"Get Worse\" on August 17",
+    excerpt:
+      "Google Ads is rolling out a Target CPA / Target ROAS bidding change on August 17, 2026. What is it, how will it affect your campaigns, and what should you do before the deadline? Full breakdown with the Bid Target Adjustment Tool.",
+    category: "Paid Media",
+    date: "2026-07-29",
+    readTime: "6 min",
+    content: `
+Today's topic is exactly my kind of thing: Google just announced a bidding
+change that nobody's talking about loudly, but that matters a lot the moment
+you open your account. The name sounds boring — "changes to target-based bid
+strategies" — but the impact isn't boring at all. Some of your campaigns' CPA
+could double or triple overnight, even if you don't touch a single setting.
+
+Let's break it down.
+
+## What does the update actually say, in plain English
+
+Right now, if a Google Ads campaign is in **"Limited by budget"** status and
+uses a target-based strategy like Target CPA or Target ROAS, the system often
+delivers *better* performance than the target you set. So your tCPA is $10, but
+the campaign is actually converting at $5. Sounds great, right? Here's the
+catch: when you raise the budget, that "bonus" performance usually evaporates,
+and you can never quite tell why.
+
+Starting **August 17, 2026**, Google is changing its bidding systems so that
+budget-limited campaigns using target-based strategies will perform more
+consistently toward your set target, even when you make budget adjustments. In
+other words, the system will stop quietly over-delivering — whatever number you
+put in the box is the number you'll actually get.
+
+Google's own example makes it crystal clear: if your Target CPA is $10 but your
+recent actual CPA is $5, your campaign will start delivering closer to $10
+starting August 17, 2026. If you want to keep your current performance, you
+need to lower your target to $5 — or to whatever number actually reflects your
+business goals.
+
+## Who's affected, and who isn't?
+
+This change doesn't cover every campaign type.
+
+**Affected:** Search, Shopping, Performance Max, Demand Gen, and Travel
+campaigns (including those managed through Search Ads 360). Demand Gen line
+items managed through Display & Video 360 are also included, and Target CPC has
+been added to the list of affected strategies there — proof this isn't just a
+search-only story.
+
+**Not affected:** App campaigns, Video reach campaigns, and Video view
+campaigns (VVC) will keep their current behavior. Hotel and Display campaigns
+already operate under the new logic, so there's no "August 17 shock" for them.
+
+One more important detail: tCPA/tROAS campaigns that **aren't**
+budget-constrained won't be affected at all. This is purely a "Limited by
+budget" problem.
+
+## So — is this good or bad?
+
+A bit of both, honestly. It depends where you're standing.
+
+**The upside:** Until now, when you raised your budget you could never fully
+predict where performance would land — it wasn't random, but it wasn't reliable
+either. Google is selling this as "predictability," and that part is genuinely
+true: a system that sticks closer to your stated target makes scaling budget
+far less of a guessing game.
+
+**The downside — and the part that actually matters:** For accounts that have
+spent over a year quietly thinking "I'm getting way better CPA than my target,
+nice," this is going to feel like a loss. For years, a lot of budget-limited
+campaigns have been quietly beating their targets — you'd set a $30 Target CPA,
+the campaign would deliver at $18, and you'd shrug and take the win. That gap
+is about to close. The number stays the same, but the real-world outcome (for
+you) gets worse, simply because the target is finally acting like an actual
+target.
+
+So the real question isn't "good or bad" — it's "how recently did you actually
+review your targets?" If your target already reflects your current real
+performance, you lose nothing. If your target is a "leftover" number set months
+ago and never revisited, that's exactly where things will hurt.
+
+## A real example straight from LinkedIn
+
+There's a great exchange that shows how confusing this gets in practice. PPC
+specialist Chris Ridley asked Google's search ads lead Ginny Marvin directly on
+LinkedIn: his client's real target range was $30–$50, they were averaging $35,
+but the target field had been left at $50 to act as an upper ceiling. Ridley
+asked whether leaving it at $50 would push CPA up toward $50.
+
+Marvin's answer sums up the whole update: the campaign will now perform more
+consistently toward the target you entered — in this case, $50 — so if you want
+to keep the current $35 average, you need to actually change the target to $35.
+Whatever's in the box is what you get in the real world; "loose ceiling"
+numbers don't work as a safety net anymore.
+
+This flips a habit a lot of account managers have relied on for years: "I'll
+leave the target a bit loose, the system usually finds something better anyway."
+After August 17, that habit produces the opposite result. Time to unlearn it.
+
+## What you stand to lose, what you stand to gain
+
+**What you could lose:**
+
+- Unexpected CPA increases / ROAS drops on budget-limited campaigns if you
+  haven't updated your targets
+- Shifts in cross-channel traffic distribution on multi-channel campaigns like
+  Performance Max and Demand Gen
+- Sudden performance swings on campaigns you've always considered "reliably
+  great," especially right after a budget change
+
+**What you could gain:**
+
+- Actually knowing what to expect when you increase budget
+- More confidence to scale budget without fearing performance will "break"
+- More reliable forecasting and reporting, with fewer surprises
+
+## What to do — step by step
+
+1. **Use the Bid Target Adjustment Tool.** It started rolling out in accounts
+   on July 6, 2026, and shows up as a notification for accounts with any
+   campaign that was budget-limited in the past 12 months while running an
+   affected strategy. If you don't see it yet, don't panic — rollout is
+   gradual.
+2. **List every "Limited by budget" campaign running a target-based strategy.**
+   Pay special attention to ones that have held that status for a long stretch
+   over the last 12 months.
+3. **Compare your target against your actual performance.** If your target is
+   $10 but your real CPA is $5 — is that a number you genuinely want to
+   protect, or just a loose ceiling you left "in case it helped"?
+4. **Pick one of three paths:** keep the target as-is (fine, if it's a
+   deliberate choice), lower it to preserve current performance, or set an
+   entirely new target that matches your actual business goals.
+5. **If you're planning to raise budget, do it gradually.** Wait 1–2 conversion
+   cycles after any increase before judging performance — don't make one big
+   jump.
+6. **Consider switching strategy as an alternative.** Moving to Maximize
+   Conversions / Maximize Conversion Value prioritizes spending the full
+   budget, but since CPA/ROAS is no longer anchored to a fixed target, it can
+   fluctuate more — a different trade-off worth weighing.
+
+## Quick takeaway
+
+This isn't a "everything just changed" panic moment, but it's also not
+something to shrug off. If you're on the agency side, the next few weeks should
+go into reviewing target fields across every client account, one by one. If you
+don't want a "why did my CPA suddenly spike" email after August 17, start
+today.
+
+We'll pick up a small SQL or tagging trick tomorrow — for today, just get this
+one on your calendar: **August 17, 2026**.
+`,
+  },
   {
     slug: "ga4-source-group-dimension",
     title: "GA4 Source Group Dimension — Finally, Clean Social Attribution",
@@ -411,4 +564,5 @@ export const blogCategories: BlogCategory[] = [
   "Server-Side Tracking",
   "Tag Management",
   "Data Engineering",
+  "Paid Media",
 ];

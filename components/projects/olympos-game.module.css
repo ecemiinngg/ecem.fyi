@@ -1,0 +1,1010 @@
+/* Olympos — antik Yunan çömlek paleti.
+   Gömülü oyun kendi görsel dünyasını kurduğu için renkler burada kapsanmış
+   (CSS module), sitenin geri kalanına sızmıyor. */
+
+.root {
+  --parchment: #f7edd8;
+  --marble: #fdf8ec;
+  --marble-edge: #e2d5b8;
+  --terracotta: #b8472a;
+  --terracotta-soft: #cf7b64;
+  --aegean: #1c6e8c;
+  --gold: #d8a13a;
+  --ink: #33261a;
+  --ink-soft: #6b5b43;
+  --olive: #5c8c3a;
+
+  /* Gömülü oyun sitenin içerik kolonunda yaşıyor; genişliği viewport'a değil
+     KABA bağlı. Bu yüzden aşağıdaki duyarlı kurallar @media değil @container
+     kullanıyor — yoksa 720px'lik bir kolonda iki kolonlu düzen sıkışıyor ve
+     harita okunamayacak kadar küçülüyor. */
+  container-type: inline-size;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  color: var(--ink);
+  background-color: var(--parchment);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(255, 255, 255, 0.7) 0%, transparent 42%),
+    radial-gradient(circle at 88% 82%, rgba(216, 161, 58, 0.09) 0%, transparent 46%);
+  border: 3px solid var(--marble-edge);
+  border-radius: 18px;
+  font-family: Georgia, "Palatino Linotype", "Book Antiqua", serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.root * {
+  box-sizing: border-box;
+}
+
+.root button {
+  font: inherit;
+  cursor: pointer;
+  color: var(--ink);
+  background: var(--marble);
+  border: 3px solid var(--marble-edge);
+  border-radius: 14px;
+  padding: 11px 16px;
+  font-weight: 700;
+  box-shadow: 0 3px 0 var(--marble-edge);
+  transition: transform 120ms, box-shadow 120ms, background 140ms;
+}
+
+.root button:hover:not(:disabled) {
+  background: #fffdf6;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 var(--marble-edge);
+}
+
+.root button:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 var(--marble-edge);
+}
+
+.root button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.root select {
+  font: inherit;
+  width: 100%;
+  padding: 8px 10px;
+  color: var(--ink);
+  background: var(--marble);
+  border: 3px solid var(--marble-edge);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* ---------- Üst tabela ---------- */
+
+.header {
+  overflow: hidden;
+  background: var(--marble);
+  border: 3px solid var(--marble-edge);
+  border-radius: 16px;
+}
+
+.meander {
+  height: 16px;
+  background-color: var(--aegean);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='16' viewBox='0 0 40 16'><g fill='none' stroke='%23f7edd8' stroke-width='2'><path d='M3 13 L3 3 L15 3 L15 10 L9 10 L9 6'/><path d='M23 13 L23 3 L35 3 L35 10 L29 10 L29 6'/></g></svg>");
+  background-repeat: repeat-x;
+}
+
+.headerTop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px 0;
+}
+
+.title {
+  margin: 0;
+  font-size: 25px;
+  color: var(--terracotta);
+}
+
+.headerControls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.difficulty {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.difficulty select {
+  width: auto;
+}
+
+.quest {
+  margin: 8px 18px 0;
+  font-size: 17px;
+}
+
+.voyage {
+  margin: 14px 18px 0;
+}
+
+.voyageTrack {
+  position: relative;
+  height: 24px;
+  background: repeating-linear-gradient(90deg, #d9e8ef 0 14px, #cadfe8 14px 28px);
+  border: 3px solid var(--aegean);
+  border-radius: 999px;
+}
+
+.voyageDone {
+  height: 100%;
+  background: linear-gradient(90deg, #8fc0d4, var(--gold));
+  border-radius: 999px 0 0 999px;
+  transition: width 420ms ease;
+}
+
+.voyageShip {
+  position: absolute;
+  top: -9px;
+  font-size: 27px;
+  transform: translateX(-55%);
+  transition: left 420ms ease;
+}
+
+.voyageHome {
+  position: absolute;
+  top: -7px;
+  right: -10px;
+  font-size: 25px;
+}
+
+.voyageLabel {
+  margin: 11px 0 0;
+  font-size: 16px;
+}
+
+.voyageLabel strong {
+  font-size: 20px;
+  color: var(--terracotta);
+}
+
+.waves {
+  color: var(--ink-soft);
+}
+
+.wavesClear {
+  color: var(--olive);
+  font-weight: 700;
+}
+
+.headerBottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin: 14px 18px 16px;
+}
+
+.resource {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  padding: 9px 14px;
+  background: var(--parchment);
+  border: 3px solid var(--marble-edge);
+  border-radius: 14px;
+}
+
+.resourceName {
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.bolts {
+  display: flex;
+  gap: 1px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.spent {
+  filter: grayscale(1);
+  opacity: 0.3;
+}
+
+.resourceCount {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--terracotta);
+}
+
+.dayButton {
+  margin-left: auto;
+  font-size: 17px;
+  color: #fff;
+  background: var(--aegean);
+  border-color: #145467;
+  box-shadow: 0 3px 0 #145467;
+}
+
+.dayButton:hover:not(:disabled) {
+  background: #21809f;
+  box-shadow: 0 5px 0 #145467;
+}
+
+/* ---------- Sahne ---------- */
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 14px;
+  align-items: start;
+}
+
+.stageColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* ---------- Harita (SVG) ---------- */
+
+.map {
+  position: relative;
+  padding: 8px;
+  background: var(--marble);
+  border: 3px solid var(--marble-edge);
+  border-radius: 16px;
+}
+
+.mapSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: manipulation;
+}
+
+.edge {
+  stroke: #9bb37a;
+  stroke-width: 3;
+  fill: none;
+}
+
+.edgeEnmity {
+  stroke: #cf7b64;
+  stroke-dasharray: 7 5;
+}
+
+.edgeLobby {
+  stroke: #8f7fc0;
+  stroke-dasharray: 2 4;
+}
+
+.edgeOnPath {
+  stroke: var(--gold);
+  stroke-width: 9;
+  stroke-dasharray: none;
+  stroke-linecap: round;
+}
+
+.nodeGroup {
+  cursor: pointer;
+}
+
+.nodeGroup:focus {
+  outline: none;
+}
+
+.nodeGroup:focus-visible .nodeCircle {
+  stroke: var(--ink);
+  stroke-width: 7;
+}
+
+.nodeCircle {
+  fill: #fbf4e4;
+  stroke: #a9a08c;
+  stroke-width: 5;
+  transition: stroke 220ms;
+}
+
+.nodeGroup:hover .nodeCircle {
+  fill: #fffdf4;
+}
+
+.statusAlly .nodeCircle {
+  stroke: var(--olive);
+}
+
+.statusEnemy .nodeCircle {
+  stroke: var(--terracotta);
+}
+
+.statusNeutral .nodeCircle {
+  stroke: #a9a08c;
+}
+
+.endpoint .nodeCircle {
+  stroke: var(--aegean);
+  stroke-width: 6;
+}
+
+.asleep .nodeCircle {
+  stroke-dasharray: 6 4;
+  fill: #ece6d7;
+}
+
+.nodeOnPath .nodeCircle {
+  stroke: var(--gold);
+}
+
+.selected .nodeCircle {
+  stroke: var(--ink);
+  stroke-width: 7;
+}
+
+.nodeEmoji {
+  font-size: 30px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+  user-select: none;
+}
+
+.nodeName {
+  font-size: 14px;
+  font-weight: 700;
+  text-anchor: middle;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--marble);
+  stroke-width: 4px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 14px;
+  margin: 6px 4px 2px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.legend span {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.legendRoad {
+  width: 22px;
+  height: 0;
+  border-top: 4px solid var(--gold);
+  border-radius: 2px;
+}
+
+/* ---------- Athena'nın öğüdü ---------- */
+
+.advisor {
+  padding: 16px 18px;
+  background: linear-gradient(180deg, #fffdf4, var(--marble));
+  border: 4px solid var(--gold);
+  border-radius: 16px;
+}
+
+.advisorHead {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.advisorHead h3 {
+  margin: 0;
+  font-size: 19px;
+  color: var(--aegean);
+}
+
+.owl {
+  font-size: 34px;
+  line-height: 1;
+}
+
+.advisorText {
+  margin: 10px 0 14px;
+  font-size: 17px;
+}
+
+.doitButton {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 15px 16px;
+  font-size: 17px;
+  text-align: left;
+  color: #fff;
+  background: var(--olive);
+  border-color: #416526;
+  box-shadow: 0 4px 0 #416526;
+}
+
+.doitButton:hover:not(:disabled) {
+  background: #6a9e44;
+  box-shadow: 0 6px 0 #416526;
+}
+
+.doitIcon {
+  font-size: 24px;
+}
+
+.doitLabel {
+  flex: 1;
+}
+
+.doitCost {
+  font-size: 12px;
+  letter-spacing: -2px;
+}
+
+.lookButton {
+  width: 100%;
+  margin-top: 9px;
+  padding: 9px 12px;
+  font-size: 14px;
+}
+
+.alts {
+  margin-top: 14px;
+  padding-top: 11px;
+  border-top: 2px dashed var(--marble-edge);
+}
+
+.alts h4 {
+  margin: 0 0 7px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+}
+
+.alts ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.alts button {
+  width: 100%;
+  padding: 8px 11px;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+}
+
+/* ---------- Karakter kartı ---------- */
+
+.card {
+  padding: 16px 18px;
+  background: var(--marble);
+  border: 3px solid var(--marble-edge);
+  border-radius: 16px;
+}
+
+.cardEmpty {
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.cardEmpty h3 {
+  margin: 0 0 7px;
+  font-size: 19px;
+  color: var(--ink);
+}
+
+.cardEmpty p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.cardTop {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.cardFace {
+  font-size: 46px;
+  line-height: 1;
+}
+
+.cardTop h3 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.cardStatus {
+  margin: 3px 0 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.statusTextAlly { color: var(--olive); }
+.statusTextEnemy { color: var(--terracotta); }
+.statusTextNeutral { color: var(--ink-soft); }
+
+.cardNote {
+  margin: 11px 0;
+  font-size: 16px;
+}
+
+.cardPower {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.starsOff {
+  opacity: 0.35;
+}
+
+.cardError {
+  margin: 0 0 11px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #7c2d12;
+  background: #fde7dd;
+  border: 3px solid var(--terracotta-soft);
+  border-radius: 12px;
+}
+
+.cardActions {
+  display: grid;
+  gap: 11px;
+}
+
+.actButton {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 13px 15px;
+  font-size: 16px;
+  text-align: left;
+  background: var(--parchment);
+}
+
+.actIcon {
+  font-size: 22px;
+}
+
+.actName {
+  flex: 1;
+}
+
+.actCost {
+  font-size: 11px;
+  letter-spacing: -2px;
+}
+
+.actWhy {
+  display: block;
+  margin: 4px 2px 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.card h4 {
+  margin: 16px 0 7px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.friends {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.friends li {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  gap: 9px;
+  align-items: center;
+  padding: 6px 9px;
+  font-size: 14px;
+  background: var(--parchment);
+  border-radius: 10px;
+}
+
+.friendEmoji {
+  font-size: 18px;
+}
+
+.bondEnmity { color: var(--terracotta); font-size: 12px; }
+.bondSupport { color: var(--olive); font-size: 12px; }
+
+/* ---------- Karakter rafı ---------- */
+
+.tray {
+  padding: 14px 16px;
+  background: var(--marble);
+  border: 3px solid var(--marble-edge);
+  border-radius: 16px;
+}
+
+.tray h3 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+  margin: 0 0 11px;
+  font-size: 17px;
+}
+
+.tray h3 small {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.trayRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.trayEmpty {
+  margin: 0;
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+.chip {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  gap: 1px 7px;
+  align-items: center;
+  padding: 9px 13px;
+  background: var(--parchment);
+  border-radius: 14px;
+}
+
+.chipEmoji {
+  grid-row: span 2;
+  font-size: 27px;
+}
+
+.chipName {
+  font-size: 14px;
+}
+
+.chipCost {
+  font-size: 10px;
+  letter-spacing: -2px;
+  color: var(--ink-soft);
+}
+
+.chipAlly { border-color: var(--olive); }
+.chipEnemy { border-color: var(--terracotta-soft); }
+
+.chipOn {
+  background: #fff6dd;
+  border-color: var(--gold);
+  box-shadow: 0 3px 0 var(--gold);
+}
+
+.chipLocked {
+  opacity: 0.55;
+  padding: 7px 11px;
+}
+
+.trayLocked {
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 2px dashed var(--marble-edge);
+}
+
+.trayLocked summary {
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.trayLocked .trayRow {
+  margin-top: 11px;
+}
+
+.trayTip {
+  margin: 11px 0 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+/* ---------- Hikâye ---------- */
+
+.storyLog {
+  max-height: 180px;
+  padding: 12px 16px;
+  overflow-y: auto;
+  background: var(--marble);
+  border: 3px solid var(--marble-edge);
+  border-radius: 16px;
+}
+
+.storyLog h3 {
+  position: sticky;
+  top: -12px;
+  margin: 0 0 8px;
+  padding: 4px 0;
+  font-size: 16px;
+  background: var(--marble);
+}
+
+.storyLog ul {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.storyLog li {
+  display: grid;
+  grid-template-columns: 22px 62px 1fr auto;
+  gap: 9px;
+  align-items: baseline;
+  padding: 6px 9px;
+  font-size: 14.5px;
+  border-radius: 10px;
+}
+
+.storyIcon { font-size: 15px; }
+
+.storyDay {
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.storyPlayer { background: #eef5e4; }
+.storyPoseidon { background: #fdeae3; }
+.storySystem { background: var(--parchment); color: var(--ink-soft); }
+
+.storyGood {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--olive);
+  white-space: nowrap;
+}
+
+.storyBad {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--terracotta);
+  white-space: nowrap;
+}
+
+/* ---------- Büyükler için ---------- */
+
+.scholar {
+  overflow: hidden;
+  background: var(--marble);
+  border: 3px solid var(--marble-edge);
+  border-radius: 16px;
+}
+
+.scholarToggle {
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  background: var(--parchment);
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.scholarToggle:hover:not(:disabled) {
+  transform: none;
+  box-shadow: none;
+}
+
+.scholarBody {
+  padding: 14px 16px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12.5px;
+}
+
+.scholarSwitch {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.scholarGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.scholarBody h4 {
+  margin: 0 0 5px;
+  font-family: Georgia, serif;
+  font-size: 13px;
+  color: var(--aegean);
+}
+
+.formula {
+  margin: 0;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.ok { color: var(--olive); }
+.bad { color: var(--terracotta); }
+
+.scholarNote {
+  margin: 5px 0 0;
+  color: var(--ink-soft);
+}
+
+.scholarList {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.scholarList li {
+  display: flex;
+  gap: 7px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.scholarList button {
+  padding: 0;
+  font-family: Georgia, serif;
+  font-size: 12.5px;
+  font-weight: 400;
+  background: none;
+  border: none;
+  box-shadow: none;
+  text-decoration: underline dotted var(--marble-edge);
+}
+
+.scholarList button:hover:not(:disabled) {
+  transform: none;
+  box-shadow: none;
+  color: var(--terracotta);
+}
+
+.scholarList code {
+  color: var(--ink-soft);
+}
+
+/* ---------- Papirüs kartı ---------- */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(51, 38, 26, 0.55);
+  border-radius: 15px;
+}
+
+.scroll {
+  max-height: 100%;
+  max-width: 540px;
+  overflow-y: auto;
+  padding: 26px 28px;
+  text-align: center;
+  background: var(--marble);
+  border: 5px solid var(--gold);
+  border-radius: 18px;
+}
+
+.scroll h3 {
+  margin: 0 0 12px;
+  font-size: 28px;
+  color: var(--terracotta);
+}
+
+.scrollLead {
+  margin: 0 0 16px;
+  font-size: 17px;
+}
+
+.scrollRules {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding: 0;
+  text-align: left;
+  list-style: none;
+}
+
+.scrollRules li {
+  padding: 11px 13px;
+  font-size: 15.5px;
+  background: var(--parchment);
+  border-radius: 12px;
+}
+
+.startButton {
+  padding: 15px 28px;
+  font-size: 19px;
+  color: #fff;
+  background: var(--terracotta);
+  border-color: #8f3520;
+  box-shadow: 0 4px 0 #8f3520;
+}
+
+.startButton:hover:not(:disabled) {
+  background: #cc5433;
+  box-shadow: 0 6px 0 #8f3520;
+}
+
+/* Oyun alanı overlay'i konumlandırabilsin */
+.shell {
+  position: relative;
+}
+
+/* ---------- Küçük ekran ---------- */
+
+/* Kabın genişliği ~900px'in altına düştüğünde tek kolona geç. Sitenin içerik
+   kolonu genelde ~720px olduğu için pratikte gömülü hâl daima tek kolon. */
+@container (max-width: 900px) {
+  .stage {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 21px;
+  }
+}
+
+@container (max-width: 560px) {
+  .root {
+    padding: 10px;
+    font-size: 15px;
+  }
+
+  .nodeName {
+    font-size: 17px;
+  }
+
+  .storyLog li {
+    grid-template-columns: 20px 1fr;
+    row-gap: 2px;
+  }
+
+  .storyDay {
+    display: none;
+  }
+}

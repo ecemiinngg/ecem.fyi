@@ -10,9 +10,13 @@ const BattleCityGame = dynamic(() => import("./battle-city-game"), {
 const VirtualTryOn = dynamic(() => import("./virtual-try-on"), {
   ssr: false,
 });
+const OlymposGame = dynamic(() => import("./olympos-game"), {
+  ssr: false,
+});
 
 const PLAYABLE_EMBEDS: Record<string, () => React.ReactNode> = {
   "battle-city-tank-game": () => <BattleCityGame />,
+  "olympos-social-network": () => <OlymposGame />,
   "fitai-virtual-try-on": () => (
     <div className="h-[720px] overflow-y-auto rounded-2xl border border-border">
       <VirtualTryOn />

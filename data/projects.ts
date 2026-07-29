@@ -77,6 +77,24 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "olympos-social-network",
+    title: "Olympos — Graph Theory Game",
+    summary:
+      "A turn-based strategy game where you clear Odysseus's path home by manipulating a social network — real weighted Dijkstra and betweenness centrality under a UI a 7-year-old can play.",
+    description:
+      "The Odyssey modelled as Social Network Analysis: 21 mythological characters, 40 weighted relationships, and a Friction Score built from the weighted shortest path plus a betweenness-centrality penalty for every hostile broker. You persuade gods, put monsters to sleep and lobby new edges to drive that score to zero, while Poseidon answers each turn with storms that re-route the shortest path live. Designed and balanced against automated play-testers: a greedy AI provably loses on Hero difficulty, so the game rewards foresight — but on Easy, an in-game advisor simulates every legal move and tells the player exactly what to press, which is verified to win. Originally built as a Python/FastAPI/NetworkX service, then ported to TypeScript and verified value-for-value against that reference so it runs fully client-side with no backend.",
+    stack: ["TypeScript", "Graph Theory", "SVG", "Next.js", "NetworkX", "FastAPI"],
+    year: "2026",
+    role: "Designer & Developer",
+    highlights: [
+      "Weighted Dijkstra + Brandes betweenness centrality hand-ported to TypeScript, matching NetworkX to 1e-9 across all 21 nodes",
+      "Balanced with automated play-testers: greedy play loses, and a test asserts the advisor's line wins — so the game is provably both fair and completable",
+      "Every SNA term translated for children: centrality becomes ⭐ ratings, the friction score becomes a ship sailing home, and the real math hides behind a \"for grown-ups\" panel",
+      "No backend and no graph library — a 21-node SVG map with keyboard-navigable nodes and a frozen deterministic layout",
+    ],
+    featured: true,
+  },
+  {
     slug: "battle-city-tank-game",
     title: "Battle City — Retro Tank Game",
     summary:

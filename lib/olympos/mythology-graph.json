@@ -1,0 +1,528 @@
+{
+  "meta": {
+    "title": "Olympos Sosyal Ağı",
+    "subtitle": "Odysseia Destanı — Sosyal Ağ Analizi",
+    "source": "odysseus",
+    "target": "ithaka",
+    "victory_threshold": 14.0,
+    "centrality_penalty_coefficient": 45.0,
+    "ap_per_turn": 7,
+    "max_turns": 10
+  },
+  "nodes": [
+    {
+      "id": "odysseus",
+      "name": "Odysseus",
+      "type": "Hero",
+      "influence_cost": 0,
+      "status": "Ally",
+      "epithet": "Çok Yönlü Zekâ",
+      "description": "İthaka kralı. Truva'dan dönüş yolunda tanrıların ağına düşmüş, kurnazlığıyla rota arayan kahraman.",
+      "emoji": "🧔",
+      "kid_note": "Kahramanımız! Yıllardır evine dönmeye çalışıyor."
+    },
+    {
+      "id": "ithaka",
+      "name": "İthaka",
+      "type": "Place",
+      "influence_cost": 0,
+      "status": "Neutral",
+      "epithet": "Yurt",
+      "description": "Odysseus'un krallığı ve hedefi. Ağdaki tek gerçek çıkış düğümü.",
+      "emoji": "🏠",
+      "kid_note": "Odysseus'un evi. Karısı ve oğlu onu burada bekliyor."
+    },
+    {
+      "id": "athena",
+      "name": "Athena",
+      "type": "God",
+      "influence_cost": 2,
+      "status": "Ally",
+      "epithet": "Gri Gözlü Bilgelik",
+      "description": "Odysseus'un baş koruyucusu. Ağdaki en güvenilir köprü; tüm lobi faaliyeti onun üzerinden başlar.",
+      "emoji": "🦉",
+      "kid_note": "Baykuşlu bilgelik tanrıçası. En iyi arkadaşımız, hep yanımızda."
+    },
+    {
+      "id": "hermes",
+      "name": "Hermes",
+      "type": "God",
+      "influence_cost": 3,
+      "status": "Neutral",
+      "epithet": "Haberci",
+      "description": "Tanrılar arası mesajcı. Ağın gerçek aracısı: onu kazanmak uzak düğümlere erişim açar.",
+      "emoji": "🪽",
+      "kid_note": "Kanatlı ayakkabılı postacı. Herkesi tanır, her kapıyı açar."
+    },
+    {
+      "id": "zeus",
+      "name": "Zeus",
+      "type": "God",
+      "influence_cost": 7,
+      "status": "Neutral",
+      "epithet": "Bulut Toplayan",
+      "description": "Olympos'un otoritesi. Tarafsız kalmayı sever ama ikna edilirse Poseidon'un direncini kırabilir.",
+      "emoji": "⚡",
+      "kid_note": "Tanrıların kralı. Şimşek atar. Onu kazanırsan Poseidon'u dizginler."
+    },
+    {
+      "id": "poseidon",
+      "name": "Poseidon",
+      "type": "God",
+      "influence_cost": 9,
+      "status": "Enemy",
+      "penalty_multiplier": 2.5,
+      "epithet": "Denizleri Sarsan",
+      "description": "Ana düşman. Oğlu Polyphemus'un kör edilmesinin öcünü alıyor. Betweenness değeri yüksek olduğu sürece her rotaya ceza biner.",
+      "emoji": "🔱",
+      "kid_note": "KÖTÜ ADAM! Denizlerin tanrısı. Oğluna zarar verdik, çok kızgın."
+    },
+    {
+      "id": "aiolos",
+      "name": "Aiolos",
+      "type": "God",
+      "influence_cost": 4,
+      "status": "Neutral",
+      "epithet": "Rüzgârların Bekçisi",
+      "description": "Rüzgârları bir tulumda tutan kral. Bir kez yardım etti, ikinci kez kapıyı yüzüne kapattı.",
+      "emoji": "🌬️",
+      "kid_note": "Rüzgârları bir torbada saklayan adam. Gemiyi hızlandırabilir."
+    },
+    {
+      "id": "helios",
+      "name": "Helios",
+      "type": "God",
+      "influence_cost": 6,
+      "status": "Enemy",
+      "epithet": "Güneş",
+      "description": "Sığırları yenen mürettebata öfkeli. Zeus'a baskı yaparak yıldırım cezası çıkarttı.",
+      "emoji": "☀️",
+      "kid_note": "Güneş tanrısı. Mürettebat ineklerini yediği için kızgın."
+    },
+    {
+      "id": "kirke",
+      "name": "Kirke",
+      "type": "Immortal",
+      "influence_cost": 5,
+      "status": "Neutral",
+      "epithet": "Aiaia'nın Büyücüsü",
+      "description": "Mürettebatı domuza çeviren büyücü. İkna edilirse ölüler ülkesinin haritasını verir.",
+      "emoji": "🧙‍♀️",
+      "kid_note": "Büyücü! Adamları domuza çevirdi. Ama ikna edilirse yol gösterir."
+    },
+    {
+      "id": "kalypso",
+      "name": "Kalypso",
+      "type": "Immortal",
+      "influence_cost": 5,
+      "status": "Neutral",
+      "epithet": "Ogygia'nın Nymphası",
+      "description": "Odysseus'u yedi yıl adasında tuttu. Ancak Hermes'in emriyle salı yapmasına izin verdi.",
+      "emoji": "🧝‍♀️",
+      "kid_note": "Adasında Odysseus'u 7 yıl misafir etti. Sonunda sal yapmasına izin verdi."
+    },
+    {
+      "id": "teiresias",
+      "name": "Teiresias",
+      "type": "Mortal",
+      "influence_cost": 4,
+      "status": "Neutral",
+      "epithet": "Kör Kâhin",
+      "description": "Hades'teki gölge. Dönüş rotasının koşullarını bilen tek düğüm; bilgi merkezliliği çok yüksek.",
+      "emoji": "🔮",
+      "kid_note": "Geleceği gören kör kâhin. Eve giden yolu bilir."
+    },
+    {
+      "id": "polyphemus",
+      "name": "Polyphemus",
+      "type": "Monster",
+      "influence_cost": 9,
+      "status": "Enemy",
+      "epithet": "Tek Gözlü Kyklops",
+      "description": "Poseidon'un oğlu. Kör edilmesi tüm destanın nedensel kökü; babasına giden en kısa kenar.",
+      "emoji": "👁️",
+      "kid_note": "Tek gözlü dev! Poseidon'un oğlu. Onun yüzünden bu iş başladı."
+    },
+    {
+      "id": "skylla",
+      "name": "Skylla",
+      "type": "Monster",
+      "influence_cost": 7,
+      "status": "Enemy",
+      "epithet": "Altı Boyunlu Kaya",
+      "description": "Boğazın bir yakası. Yanından geçmek her zaman kayıpla sonuçlanır.",
+      "emoji": "🐙",
+      "kid_note": "Altı başlı deniz canavarı. Kayalıkların bir yanında bekler."
+    },
+    {
+      "id": "charybdis",
+      "name": "Charybdis",
+      "type": "Monster",
+      "influence_cost": 7,
+      "status": "Enemy",
+      "epithet": "Yutan Girdap",
+      "description": "Boğazın diğer yakası. Skylla ile birlikte geçilemez bir kenar çifti oluşturur.",
+      "emoji": "🌀",
+      "kid_note": "Her şeyi yutan dev girdap. Kayalıkların öbür yanında."
+    },
+    {
+      "id": "sirens",
+      "name": "Seirenler",
+      "type": "Monster",
+      "influence_cost": 5,
+      "status": "Enemy",
+      "epithet": "Ölümcül Şarkı",
+      "description": "Bilgiyle kandıran düğüm. Nötralize edilmesi (balmumu) ucuz ama etkisi geçicidir.",
+      "emoji": "🧜‍♀️",
+      "kid_note": "Şarkı söyleyerek gemicileri kandıran deniz kızları."
+    },
+    {
+      "id": "alkinoos",
+      "name": "Alkinoos",
+      "type": "Mortal",
+      "influence_cost": 5,
+      "status": "Neutral",
+      "epithet": "Phaiaklar Kralı",
+      "description": "Odysseus'u İthaka'ya götüren gemiyi veren kral. Ağdaki en değerli lojistik düğümü.",
+      "emoji": "👑",
+      "kid_note": "İyi kalpli kral. Odysseus'u eve götürecek gemiyi verebilir."
+    },
+    {
+      "id": "nausikaa",
+      "name": "Nausikaa",
+      "type": "Mortal",
+      "influence_cost": 2,
+      "status": "Neutral",
+      "epithet": "Kralın Kızı",
+      "description": "Kıyıda bulduğu yabancıyı sarayına yönlendirdi. Alkinoos'a giden ucuz kenar.",
+      "emoji": "👧",
+      "kid_note": "Kralın kızı. Kıyıda bulduğu yabancıya yardım etti."
+    },
+    {
+      "id": "eumaios",
+      "name": "Eumaios",
+      "type": "Mortal",
+      "influence_cost": 2,
+      "status": "Neutral",
+      "epithet": "Sadık Domuz Çobanı",
+      "description": "İthaka içindeki güvenli ilk temas. Sarayın kapısını sessizce açar.",
+      "emoji": "🐷",
+      "kid_note": "Sadık domuz çobanı. Odysseus'u gizlice eve sokabilir."
+    },
+    {
+      "id": "telemachos",
+      "name": "Telemachos",
+      "type": "Mortal",
+      "influence_cost": 3,
+      "status": "Neutral",
+      "epithet": "Babasını Arayan",
+      "description": "Athena'nın yönlendirmesiyle babasını aramaya çıkan oğul. İthaka'ya en yakın müttefik adayı.",
+      "emoji": "👦",
+      "kid_note": "Odysseus'un oğlu! Babasını arıyor. Eve en yakın dost."
+    },
+    {
+      "id": "penelope",
+      "name": "Penelope",
+      "type": "Mortal",
+      "influence_cost": 3,
+      "status": "Neutral",
+      "epithet": "Dokuyup Söken",
+      "description": "Talipleri yıllarca oyalayan kraliçe. İthaka düğümünü ayakta tutan asıl direnç.",
+      "emoji": "🧶",
+      "kid_note": "Odysseus'un karısı. Her gün dokuyup her gece söküyor, onu bekliyor."
+    },
+    {
+      "id": "antinoos",
+      "name": "Antinoos",
+      "type": "Mortal",
+      "influence_cost": 6,
+      "status": "Enemy",
+      "epithet": "Taliplerin Başı",
+      "description": "Sarayı işgal eden taliplerin lideri. İthaka'ya giden yerel kenarları ağırlaştırır.",
+      "emoji": "😈",
+      "kid_note": "Sarayı işgal eden yaramaz taliplerin başı."
+    }
+  ],
+  "edges": [
+    {
+      "source": "odysseus",
+      "target": "athena",
+      "weight": 2,
+      "type": "Support",
+      "label": "Tanrısal himaye"
+    },
+    {
+      "source": "odysseus",
+      "target": "polyphemus",
+      "weight": 9,
+      "type": "Enmity",
+      "label": "Kör edilen göz"
+    },
+    {
+      "source": "odysseus",
+      "target": "sirens",
+      "weight": 7,
+      "type": "Enmity",
+      "label": "Şarkının çağrısı"
+    },
+    {
+      "source": "odysseus",
+      "target": "kirke",
+      "weight": 8,
+      "type": "Enmity",
+      "label": "Büyülenen mürettebat"
+    },
+    {
+      "source": "odysseus",
+      "target": "aiolos",
+      "weight": 6,
+      "type": "Support",
+      "label": "Rüzgâr tulumu"
+    },
+    {
+      "source": "athena",
+      "target": "hermes",
+      "weight": 3,
+      "type": "Support",
+      "label": "Olympos ittifakı"
+    },
+    {
+      "source": "athena",
+      "target": "zeus",
+      "weight": 6,
+      "type": "Support",
+      "label": "Baba-kız etkisi"
+    },
+    {
+      "source": "athena",
+      "target": "telemachos",
+      "weight": 12,
+      "type": "Support",
+      "label": "Mentor kılığı"
+    },
+    {
+      "source": "hermes",
+      "target": "kirke",
+      "weight": 2,
+      "type": "Support",
+      "label": "Moly otu bilgisi"
+    },
+    {
+      "source": "hermes",
+      "target": "kalypso",
+      "weight": 3,
+      "type": "Support",
+      "label": "Zeus'un emri"
+    },
+    {
+      "source": "hermes",
+      "target": "zeus",
+      "weight": 2,
+      "type": "Support",
+      "label": "Haberci görevi"
+    },
+    {
+      "source": "zeus",
+      "target": "poseidon",
+      "weight": 5,
+      "type": "Support",
+      "label": "Kardeşlik hiyerarşisi"
+    },
+    {
+      "source": "zeus",
+      "target": "helios",
+      "weight": 4,
+      "type": "Support",
+      "label": "Yıldırım pazarlığı"
+    },
+    {
+      "source": "poseidon",
+      "target": "polyphemus",
+      "weight": 4,
+      "type": "Support",
+      "label": "Baba-oğul öcü"
+    },
+    {
+      "source": "poseidon",
+      "target": "ithaka",
+      "weight": 15,
+      "type": "Enmity",
+      "label": "Kapatılan deniz"
+    },
+    {
+      "source": "poseidon",
+      "target": "charybdis",
+      "weight": 5,
+      "type": "Support",
+      "label": "Boğazın efendisi"
+    },
+    {
+      "source": "poseidon",
+      "target": "alkinoos",
+      "weight": 9,
+      "type": "Enmity",
+      "label": "Phaiaklara kin"
+    },
+    {
+      "source": "kirke",
+      "target": "teiresias",
+      "weight": 4,
+      "type": "Support",
+      "label": "Hades'in haritası"
+    },
+    {
+      "source": "kirke",
+      "target": "skylla",
+      "weight": 5,
+      "type": "Enmity",
+      "label": "Boğaz uyarısı"
+    },
+    {
+      "source": "kirke",
+      "target": "helios",
+      "weight": 6,
+      "type": "Support",
+      "label": "Güneş soyu"
+    },
+    {
+      "source": "kalypso",
+      "target": "alkinoos",
+      "weight": 5,
+      "type": "Support",
+      "label": "Saldan kıyıya"
+    },
+    {
+      "source": "kalypso",
+      "target": "poseidon",
+      "weight": 8,
+      "type": "Enmity",
+      "label": "Batırılan sal"
+    },
+    {
+      "source": "teiresias",
+      "target": "ithaka",
+      "weight": 9,
+      "type": "Support",
+      "label": "Kehanetin rotası"
+    },
+    {
+      "source": "teiresias",
+      "target": "helios",
+      "weight": 5,
+      "type": "Enmity",
+      "label": "Sığırlara dokunma"
+    },
+    {
+      "source": "aiolos",
+      "target": "poseidon",
+      "weight": 6,
+      "type": "Enmity",
+      "label": "Ters esen rüzgâr"
+    },
+    {
+      "source": "aiolos",
+      "target": "ithaka",
+      "weight": 13,
+      "type": "Support",
+      "label": "Neredeyse varılan kıyı"
+    },
+    {
+      "source": "sirens",
+      "target": "skylla",
+      "weight": 4,
+      "type": "Enmity",
+      "label": "Ölüm boğazı"
+    },
+    {
+      "source": "skylla",
+      "target": "charybdis",
+      "weight": 3,
+      "type": "Enmity",
+      "label": "İki kötüden biri"
+    },
+    {
+      "source": "charybdis",
+      "target": "helios",
+      "weight": 6,
+      "type": "Enmity",
+      "label": "Sürüklenen sal"
+    },
+    {
+      "source": "helios",
+      "target": "ithaka",
+      "weight": 11,
+      "type": "Enmity",
+      "label": "Kaybedilen mürettebat"
+    },
+    {
+      "source": "alkinoos",
+      "target": "nausikaa",
+      "weight": 2,
+      "type": "Support",
+      "label": "Baba-kız"
+    },
+    {
+      "source": "alkinoos",
+      "target": "ithaka",
+      "weight": 7,
+      "type": "Support",
+      "label": "Phaiak gemisi"
+    },
+    {
+      "source": "nausikaa",
+      "target": "kalypso",
+      "weight": 6,
+      "type": "Support",
+      "label": "Kıyıya vuran yabancı"
+    },
+    {
+      "source": "telemachos",
+      "target": "eumaios",
+      "weight": 2,
+      "type": "Support",
+      "label": "Kulübede buluşma"
+    },
+    {
+      "source": "telemachos",
+      "target": "penelope",
+      "weight": 3,
+      "type": "Support",
+      "label": "Ana-oğul"
+    },
+    {
+      "source": "telemachos",
+      "target": "antinoos",
+      "weight": 5,
+      "type": "Enmity",
+      "label": "Suikast girişimi"
+    },
+    {
+      "source": "eumaios",
+      "target": "ithaka",
+      "weight": 2,
+      "type": "Support",
+      "label": "Sessiz dönüş"
+    },
+    {
+      "source": "penelope",
+      "target": "ithaka",
+      "weight": 3,
+      "type": "Support",
+      "label": "Yay sınavı"
+    },
+    {
+      "source": "penelope",
+      "target": "antinoos",
+      "weight": 4,
+      "type": "Enmity",
+      "label": "Talip baskısı"
+    },
+    {
+      "source": "antinoos",
+      "target": "ithaka",
+      "weight": 8,
+      "type": "Enmity",
+      "label": "İşgal edilen saray"
+    }
+  ]
+}

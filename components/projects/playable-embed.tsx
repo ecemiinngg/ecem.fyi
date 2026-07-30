@@ -13,8 +13,12 @@ const VirtualTryOn = dynamic(() => import("./virtual-try-on"), {
 const OlymposGame = dynamic(() => import("./olympos-game"), {
   ssr: false,
 });
+const AttributionTycoon = dynamic(() => import("./attribution-tycoon-game"), {
+  ssr: false,
+});
 
 const PLAYABLE_EMBEDS: Record<string, () => React.ReactNode> = {
+  "attribution-tycoon": () => <AttributionTycoon />,
   "battle-city-tank-game": () => <BattleCityGame />,
   "olympos-social-network": () => <OlymposGame />,
   "fitai-virtual-try-on": () => (

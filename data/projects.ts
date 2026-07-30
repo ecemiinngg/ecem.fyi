@@ -77,6 +77,33 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "attribution-tycoon",
+    title: "Attribution Tycoon — The Tracking Wars",
+    summary:
+      "A 30-day budget simulation where making the sale is not enough — you have to be able to measure it. Four agents model traffic, signal loss, EMQ and ad-platform bidding.",
+    description:
+      "A measurement-infrastructure simulation built as four independent agents that hand off to each other every simulated day: a Customer Traffic agent generates a cohort with a real device/browser/ad-blocker/consent composition, a Tracking Engine decides per segment which of those events survive, an Ad Platform agent prices delivery from the surviving signal, and a Market Event agent fires the real-world crises — Apple's Link Tracking Protection, Google Cookielock, TikTok's in-app browser lockdown. Retention is S_retention = (1 − AdBlocker_eff) × (1 − SignalLoss) × PipelineIntegrity, and that retention plus your installed modules produce an EMQ score the bidding engine turns into cost: CPA_effective = CPA_base ÷ (EMQ / 10). The point of the game is the gap this produces. A client-side-only stack lands at EMQ ≈ 3.4, which turns Meta's $20 base CPA into ~$59 and shows 0.4x ROAS on the dashboard while reality is 1.3x — so the player is tempted to cut budget on a channel that is actually working. Install CAPI without event deduplication and the trap inverts: the dashboard now reports more revenue than happened.",
+    stack: [
+      "TypeScript",
+      "React",
+      "Server-Side Tagging",
+      "Meta CAPI",
+      "Consent Mode v2",
+      "Canvas",
+    ],
+    year: "2026",
+    role: "Designer & Developer",
+    highlights: [
+      "Four decoupled agents — traffic, tracking, bidding, market events — orchestrated by one deterministic daily loop, so every number on screen is computed rather than scripted",
+      "Ported from a vanilla-JS reference build and verified value-for-value against it: 5,904 checks across 3 seeds × 6 strategies match to 1e-9, which is how a PRNG call-order bug in the port was caught",
+      "Balanced with headless play-testers: client-side-only loses $22.4k over 30 days, a full server-side stack at capacity budget returns +$65.9k, and over-scaling on a weak signal goes bankrupt on day 11",
+      "Models the deduplication trap most CAPI rollouts hit — pixel + S2S without event_id inflates the dashboard above reality, and the scoring model punishes that exactly as hard as under-reporting",
+      "No backend and no chart library: the charts are hand-drawn canvas, and the embed reflows with @container queries because it lives in a 720px column",
+    ],
+    repoUrl: "https://github.com/ecemiinngg/attribution-tycoon",
+    featured: true,
+  },
+  {
     slug: "olympos-social-network",
     title: "Olympos — Graph Theory Game",
     summary:

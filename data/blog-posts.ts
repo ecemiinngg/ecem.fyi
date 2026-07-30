@@ -17,6 +17,128 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "ga4-campaign-data-import-currency",
+    title:
+      'GA4 Now Requires a "Currency" Field When Importing Campaign Data: What the July 28 Update Actually Means',
+    excerpt:
+      "Campaign Data Import with cost data now requires an explicit currency. Small update, but it quietly fixes a real data-corruption problem — and it can stop an import cold if you edit a config and leave the field blank.",
+    category: "Analytics",
+    date: "2026-07-30",
+    readTime: "6 min",
+    content: `
+Hi everyone,
+
+Today a small but annoying update landed on my desk from GA4's "What's New"
+page: the July 28, 2026 "Campaign data import currency update." My first
+reaction was "okay, minor thing." Then I went through Reddit and the Analytics
+Help forums and saw how many people have had campaign imports quietly break
+because of currency mismatches, and I changed my mind. This is exactly the kind
+of update that looks small but sneaks up on your reporting.
+
+## What does the update actually say?
+
+Google added a new rule to **Campaign Data Import** (the feature you use to
+pull cost, click, and impression data from non-Google platforms like Meta,
+TikTok, Reddit, and Pinterest):
+
+**Any import that includes cost data now requires a "Currency" field.**
+
+In other words, uploading \`cost = 1250\` on its own is no longer enough. You now
+have to tell GA4 which currency that 1250 is in (USD, EUR, TRY...), either by
+mapping it from a column or by hardcoding a single fixed value.
+
+There are two ways to set it:
+
+1. **Map from data source:** Match a column in your data source to the currency
+   field (in ISO 4217 format, like USD, EUR, TRY).
+2. **Hardcode currency:** Pick one fixed currency for the entire dataset from a
+   dropdown.
+
+Why is Google doing this? Because up until now, every import (existing and new)
+simply assumed the uploaded cost matched the property's currency setting. If you
+changed your property currency from TRY to USD, the cost data you'd already
+imported stayed exactly as it was, with no conversion, and your reports were
+quietly wrong from that point on.
+
+## How to set it up (practical steps)
+
+1. Go to **Admin > Data Import**, and open an existing Campaign Data import or
+   create a new one.
+2. In the field mapping screen you'll see a **"Currency"** row (it becomes
+   required automatically once you've added a cost metric).
+3. If your data source already has a column with the currency code, select
+   **"Map from data source"** and connect that column.
+4. If not, and everything comes in one currency, select **"Hardcode currency"**
+   and lock in the ISO 4217 code (USD, EUR, TRY).
+5. **Nothing breaks automatically on existing imports.** Google says existing
+   imports will keep reporting "as if" they match the current property
+   currency. But you won't be able to skip past this field the next time you
+   set up a new import or edit an existing one.
+
+Quick note: this only affects imports that include **cost** data. If you're only
+uploading clicks/impressions with no cost, the currency field isn't required.
+
+## What's changing, and is it good or bad?
+
+**The good:**
+
+- Reporting gets more reliable for teams running multi-currency campaigns
+  (think agencies running EU + TR + US markets at once). GA4 now converts cost
+  data coming from different currencies across Reddit Ads, Meta, and TikTok
+  correctly on its own, so you stop having to manually convert everything in
+  Sheets.
+- When you change your property's currency, historical data no longer gets
+  silently misread as if it were in the old currency. That's a real fix for a
+  quiet data-corruption problem.
+
+**The bad / worth watching:**
+
+- On accounts with imports already set up, if someone goes in to edit the
+  config and leaves the currency field blank, the import will simply stop. This
+  is exactly the kind of thing that costs a team two days of "why is data
+  missing" before someone finds the cause.
+- For agencies managing multiple client properties: if each property runs a
+  different currency, you'll need to check every single import configuration
+  individually. Anyone running automated bulk setups (especially with Looker
+  Studio templates) needs to do a manual pass here.
+
+## The real-world problem from Reddit and forums: currency mismatches silently break reports
+
+While researching this, I found a recurring complaint across GA4 community
+threads and support forums: someone on the e-commerce/Shopify side asked why
+"GA4 revenue [was] not being converted from international currency." The root
+cause was a hardcoded currency value in the data layer (like \`shop.currency\`)
+instead of the actual order currency (\`order.currency\`). So this isn't just a
+campaign-import problem, it shows up in event-level currency reporting too.
+
+The takeaway: filling in the currency field on campaign imports isn't enough on
+its own. You also need to make sure your e-commerce events (\`purchase\`,
+\`add_to_cart\`, etc.) always send the \`currency\` parameter based on the actual
+order currency, never a fixed value. If you don't fix both sides (import and
+event-level), your revenue reports will still come out wrong.
+
+## What should we do? (action checklist)
+
+- [ ] List out every existing Campaign Data Import source under **Admin > Data
+      Import**.
+- [ ] For every import that includes cost data, confirm the currency field is
+      mapped correctly.
+- [ ] If you've changed your property's currency setting in the last 12 months,
+      flag the import data from before that change; retroactive correction
+      doesn't happen automatically.
+- [ ] Check whether your data layer's \`currency\` parameter is hardcoded or
+      dynamic (a common issue in Shopify/WooCommerce setups).
+- [ ] If you manage multiple properties or clients, add this check to a
+      recurring checklist; don't treat it as a one-time fix, repeat it on every
+      new client onboarding.
+
+This isn't a "big and loud" update, and that's exactly why it's easy to miss.
+For anyone running cost or ROAS reporting in GA4, a 10-minute check now is a lot
+cheaper than months of looking at the wrong revenue or ROAS numbers. Have you
+checked your imports this week?
+`,
+  },
+  {
     slug: "google-ads-tcpa-troas-bidding-change",
     title:
       "Google Ads' Quiet Revolution: Why Your tCPA/tROAS Campaigns Might Suddenly \"Get Worse\" on August 17",

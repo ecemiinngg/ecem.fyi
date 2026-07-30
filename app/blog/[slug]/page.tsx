@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import { ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import SqlEditor from "@/components/blog/sql-editor";
+import TaskCheckbox from "@/components/blog/task-checkbox";
 import { blogPosts } from "@/data/blog-posts";
 
 /** A ```sql fence arrives as <pre><code class="language-sql">. Route those to
@@ -38,9 +40,19 @@ const mdxComponents = {
   p: (props: React.ComponentProps<"p">) => (
     <p className="mb-4 leading-relaxed text-muted" {...props} />
   ),
-  ul: (props: React.ComponentProps<"ul">) => (
-    <ul className="mb-4 list-disc space-y-2 pl-6 text-muted" {...props} />
-  ),
+  // A GFM task list carries `contains-task-list`; those rows lead with a
+  // checkbox, so they shouldn't also get a bullet.
+  ul: ({ className, ...props }: React.ComponentProps<"ul">) => {
+    const isTaskList = (className ?? "").includes("contains-task-list");
+    return (
+      <ul
+        className={`mb-4 space-y-2 text-muted ${
+          isTaskList ? "list-none pl-1" : "list-disc pl-6"
+        }`}
+        {...props}
+      />
+    );
+  },
   ol: (props: React.ComponentProps<"ol">) => (
     <ol className="mb-4 list-decimal space-y-2 pl-6 text-muted" {...props} />
   ),
@@ -60,6 +72,8 @@ const mdxComponents = {
     />
   ),
   pre: preRenderer,
+  // GFM emits a disabled checkbox for `- [ ]`; swap in a tickable one.
+  input: TaskCheckbox,
 };
 
 export function generateStaticParams() {
@@ -110,7 +124,11 @@ export default async function BlogPostPage({
         <span>{post.readTime} read</span>
       </div>
       <div className="text-base">
-        <MDXRemote source={post.content} components={mdxComponents} />
+        <MDXRemote
+          source={post.content}
+          components={mdxComponents}
+          options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+        />
       </div>
     </article>
   );

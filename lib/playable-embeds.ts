@@ -3,6 +3,7 @@ export const PLAYABLE_EMBED_SLUGS = new Set([
   "battle-city-tank-game",
   "fitai-virtual-try-on",
   "olympos-social-network",
+  "rewrite-the-epic",
 ]);
 
 export function hasPlayableEmbed(slug: string) {

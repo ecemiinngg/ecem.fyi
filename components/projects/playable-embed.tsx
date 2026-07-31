@@ -16,11 +16,15 @@ const OlymposGame = dynamic(() => import("./olympos-game"), {
 const AttributionTycoon = dynamic(() => import("./attribution-tycoon-game"), {
   ssr: false,
 });
+const RewriteTheEpic = dynamic(() => import("./rewrite-the-epic-game"), {
+  ssr: false,
+});
 
 const PLAYABLE_EMBEDS: Record<string, () => React.ReactNode> = {
   "attribution-tycoon": () => <AttributionTycoon />,
   "battle-city-tank-game": () => <BattleCityGame />,
   "olympos-social-network": () => <OlymposGame />,
+  "rewrite-the-epic": () => <RewriteTheEpic />,
   "fitai-virtual-try-on": () => (
     <div className="h-[720px] overflow-y-auto rounded-2xl border border-border">
       <VirtualTryOn />

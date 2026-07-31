@@ -77,6 +77,26 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "rewrite-the-epic",
+    title: "Destanı Yeniden Yaz — Odyssey A/B Test",
+    summary:
+      "A Turkish-language decision-tree RPG that A/B tests the player against Homer: five canon dilemmas from the Odyssey, scored on rationality, curiosity, risk and leadership.",
+    description:
+      "The Odyssey rebuilt as an analytics simulation. The player takes Odysseus's five historical dilemmas — Polyphemus's cave, a year on Circe's island, the Sirens, Scylla vs. Charybdis, the cattle of Helios — and every choice moves crew count, elapsed months and four personality metrics. At the end an analytics agent runs the player's decision vector against Odysseus's own line and reports the percentage gaps, a leadership profile and a note per node. Five specialised modules do the work behind an orchestrator: a narrator that writes the scene in Homeric register, a canon database that holds what Odysseus actually did, a rule engine that resolves deterministic and probabilistic outcomes from a seeded PRNG, and the KPI reporter. The canon comparison is not hardcoded — canon choices run through the same engine in expected-value mode, which is what keeps the two vectors comparable and is verified against Homer's own totals: 120 months and zero surviving crew.",
+    stack: ["TypeScript", "React", "Next.js", "Decision Trees", "A/B Testing", "SVG"],
+    year: "2026",
+    role: "Designer & Developer",
+    highlights: [
+      "Canon Vector is computed, not written: Odysseus's line runs through the same engine deterministically and reproduces the epic's own figures — 120 months, 100% crew loss — with a checker that fails loudly if the data drifts",
+      "All 640 terminal paths through the tree were swept for correctness: no NaN, no out-of-range metric, no unreachable report — which is how a mid-run clamp that was quietly understating canon curiosity got caught",
+      "Seeded PRNG (mulberry32) makes every run reproducible: same seed plus same decisions replays the same dice, and the seed ships inside the exported report",
+      "Uncertainty meters are derived from the rules — risk appetite, variance probability and fatal branches — so a choice discloses how predictable it is without leaking its outcome",
+      "Seven hand-drawn wireframe characters animate in place (a blinking cyclops, fluttering sirens, a turning Charybdis), and the whole motion layer — typewriter narration, dice roll, growing bars — switches off under prefers-reduced-motion",
+    ],
+    liveUrl: "https://destani-yeniden-yaz.vercel.app",
+    featured: true,
+  },
+  {
     slug: "attribution-tycoon",
     title: "Attribution Tycoon — The Tracking Wars",
     summary:

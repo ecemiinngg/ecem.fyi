@@ -17,6 +17,109 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "silent-sdk-death-appsflyer-bigquery",
+    title: "Catching a Silent AppsFlyer / Adjust SDK Death in BigQuery",
+    excerpt:
+      "When a mobile attribution SDK hits End-of-Support your app doesn't crash — it keeps running while data quality quietly erodes. Two BigQuery queries to catch it in your own data before the monthly report does.",
+    category: "Data Engineering",
+    date: "2026-07-31",
+    readTime: "5 min",
+    content: `
+On July 23, 2026, AppsFlyer updated its iOS and Android SDK release notes and
+repeated a reminder it gives on a fixed cycle: legacy SDK versions lose support
+on a strict six-month schedule. The dangerous part is that when an SDK reaches
+End-of-Support, your app does not crash. It keeps running. Your data quality
+just quietly degrades. Install and event counts drop, and nobody notices until
+the monthly report looks off.
+
+Instead of walking through another platform update this week, here is a small
+SQL trick to help you catch this in your own data before it becomes a real
+problem.
+
+## Why is the problem so silent
+
+A **deprecated** SDK version still runs and still sends data. It just stops
+receiving fixes for known bugs, such as attribution drift, event loss, or
+crashes.
+
+A version that hits **End-of-Support** is very likely to become incompatible
+with new OS versions, for example iOS 26, which now requires AdAttributionKit
+integration.
+
+Mobile teams usually rely on app store force-update logic to push app updates,
+but they rarely monitor SDK version distribution on its own. The result is that
+a meaningful share of your user base can keep sending data from an old,
+unsupported SDK without you realizing it.
+
+## The trick in BigQuery / GA4 export
+
+If you have your AppsFlyer raw data export, or the GA4 \`app_info\` table,
+connected to BigQuery, a simple query like this will show you the SDK version
+distribution and how it moves over time.
+
+\`\`\`sql
+SELECT
+  event_date,
+  app_version,
+  sdk_version,
+  COUNT(DISTINCT appsflyer_id) AS unique_devices,
+  COUNTIF(event_name = 'af_purchase') AS purchase_events
+FROM
+  \`project.dataset.appsflyer_raw_data\`
+WHERE
+  event_date BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY) AND CURRENT_DATE()
+GROUP BY
+  event_date, app_version, sdk_version
+ORDER BY
+  event_date DESC, unique_devices DESC
+\`\`\`
+
+Pivot the result weekly and ask one question: how is \`unique_devices\` trending
+over the last four weeks for \`sdk_version\`s marked as deprecated? A decline is a
+good sign, it means users are updating. If the number is flat or growing, a
+meaningful part of your user base is still sitting on a risky version.
+
+The second step is comparing event loss by version.
+
+\`\`\`sql
+SELECT
+  sdk_version,
+  COUNT(DISTINCT appsflyer_id) AS devices,
+  COUNTIF(event_name = 'af_purchase') AS purchases,
+  SAFE_DIVIDE(COUNTIF(event_name = 'af_purchase'), COUNT(DISTINCT appsflyer_id)) AS purchase_rate
+FROM
+  \`project.dataset.appsflyer_raw_data\`
+WHERE
+  event_date = CURRENT_DATE() - 1
+GROUP BY
+  sdk_version
+ORDER BY
+  purchase_rate ASC
+\`\`\`
+
+If \`purchase_rate\` is unusually low on older SDK versions, for a user segment
+with otherwise comparable traffic quality, that points to attribution or event
+loss caused by the SDK itself, not by campaign quality.
+
+## What you can do?
+
+Turn this query into a **weekly scheduled query** and feed \`sdk_version\` level
+\`unique_devices\` and \`purchase_rate\` into a Looker Studio dashboard.
+
+Set a threshold, for example once deprecated versions exceed 10 percent of
+devices, trigger a force-update campaign with the mobile team.
+
+On **iOS**, prioritize migrating to SDK versions with AdAttributionKit support
+as your iOS 26 user share grows, otherwise you lose access to the re-engagement
+windows and geo-level postback data AAK offers.
+
+On **Android**, remember that dependent integrations like the Purchase
+Connector or AdRevenue Connector need to be migrated alongside SDK v6.15.0 and
+above. If you update the SDK without migrating the connector, revenue data can
+silently stop flowing.
+`,
+  },
+  {
     slug: "ga4-campaign-data-import-currency",
     title:
       'GA4 Now Requires a "Currency" Field When Importing Campaign Data: What the July 28 Update Actually Means',

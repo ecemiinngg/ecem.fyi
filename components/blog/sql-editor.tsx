@@ -1,7 +1,24 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { Check, Copy, RotateCcw } from "lucide-react";
+import { useMemo, useRef, useState } from "react";
+import {
+  AlertTriangle,
+  Check,
+  CircleAlert,
+  Copy,
+  RotateCcw,
+} from "lucide-react";
+import { analyzeSql, type Diagnostic } from "@/lib/sql-lint";
+
+/** Char offset of a 1-based line/column, for moving the caret to a diagnostic. */
+function offsetOf(src: string, line: number, column: number) {
+  const lines = src.split("\n");
+  let offset = 0;
+  for (let i = 0; i < line - 1 && i < lines.length; i++) {
+    offset += lines[i].length + 1;
+  }
+  return offset + (column - 1);
+}
 
 const KEYWORDS = [
   "SELECT", "FROM", "WHERE", "GROUP BY", "ORDER BY", "CASE", "WHEN", "THEN",
@@ -77,6 +94,24 @@ export default function SqlEditor({
   const lines = value.split("\n");
   const dirty = value !== initial;
 
+  // Derived during render, not in an effect. Memoised so a long query isn't
+  // re-analysed on unrelated re-renders.
+  const { diagnostics, outputColumns } = useMemo(
+    () => analyzeSql(value),
+    [value]
+  );
+  const errors = diagnostics.filter((d) => d.severity === "error").length;
+  const warnings = diagnostics.length - errors;
+
+  /** Put the caret on a diagnostic so it's obvious which token is at fault. */
+  function jumpTo(d: Diagnostic) {
+    const ta = taRef.current;
+    if (!ta) return;
+    const at = offsetOf(value, d.line, d.column);
+    ta.focus();
+    ta.setSelectionRange(at, at + 1);
+  }
+
   async function copy() {
     try {
       await navigator.clipboard.writeText(value);
@@ -123,6 +158,27 @@ export default function SqlEditor({
         <span className="font-mono text-xs text-muted">{filename}</span>
         <span className="rounded border border-accent/30 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-accent">
           BigQuery
+        </span>
+        <span
+          className={`inline-flex items-center gap-1 font-mono text-[11px] ${
+            errors ? "text-accent-4" : warnings ? "text-accent-2" : "text-accent-3"
+          }`}
+        >
+          {errors > 0 ? (
+            <>
+              <CircleAlert className="h-3 w-3" /> {errors} error
+              {errors > 1 ? "s" : ""}
+            </>
+          ) : warnings > 0 ? (
+            <>
+              <AlertTriangle className="h-3 w-3" /> {warnings} warning
+              {warnings > 1 ? "s" : ""}
+            </>
+          ) : (
+            <>
+              <Check className="h-3 w-3" /> parsed
+            </>
+          )}
         </span>
         <div className="ml-auto flex items-center gap-1">
           {dirty && (
@@ -187,9 +243,56 @@ export default function SqlEditor({
         </div>
       </div>
 
-      <figcaption className="border-t border-border/70 bg-background-alt/40 px-4 py-2 font-mono text-[11px] text-muted/70">
-        {lines.length} lines · editable scratchpad — tweak it here, then run it
-        in the BigQuery console
+      {/* Compiler-style output: diagnostics if the statement won't parse,
+          otherwise the schema it would return. Nothing is executed here — no
+          warehouse in the browser — so no row counts are implied. */}
+      <div className="border-t border-border/70 bg-background-alt/40 px-4 py-2.5 font-mono text-[11px]">
+        {diagnostics.length > 0 ? (
+          <ul className="space-y-1">
+            {diagnostics.map((d, i) => (
+              <li key={i}>
+                <button
+                  type="button"
+                  onClick={() => jumpTo(d)}
+                  className="flex w-full items-start gap-2 text-left transition-colors hover:text-foreground"
+                >
+                  <span
+                    className={
+                      d.severity === "error" ? "text-accent-4" : "text-accent-2"
+                    }
+                  >
+                    {d.severity}
+                  </span>
+                  <span className="text-muted/60">
+                    {d.line}:{d.column}
+                  </span>
+                  <span className="text-muted">{d.message}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-muted/70">
+            <span className="text-accent-3">✓ no problems</span>
+            <span>·</span>
+            <span>{lines.length} lines</span>
+            {outputColumns.length > 0 && (
+              <>
+                <span>·</span>
+                <span>
+                  returns{" "}
+                  <span className="text-accent-2">
+                    {outputColumns.join(", ")}
+                  </span>
+                </span>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+      <figcaption className="border-t border-border/70 px-4 py-2 font-mono text-[10px] text-muted/50">
+        Checked in-browser for syntax only — run it in the BigQuery console to
+        get results.
       </figcaption>
     </figure>
   );

@@ -74,6 +74,32 @@ const mdxComponents = {
   pre: preRenderer,
   // GFM emits a disabled checkbox for `- [ ]`; swap in a tickable one.
   input: TaskCheckbox,
+
+  // GFM tables. Wrapped so a wide table scrolls on its own instead of
+  // pushing the article into a horizontal scroll.
+  table: (props: React.ComponentProps<"table">) => (
+    <div className="mb-6 overflow-x-auto rounded-xl border border-border">
+      <table className="w-full border-collapse text-left text-sm" {...props} />
+    </div>
+  ),
+  thead: (props: React.ComponentProps<"thead">) => (
+    <thead className="bg-background-alt/60" {...props} />
+  ),
+  th: (props: React.ComponentProps<"th">) => (
+    <th
+      className="whitespace-nowrap border-b border-border px-4 py-3 font-mono text-[11px] font-semibold uppercase tracking-wider text-accent"
+      {...props}
+    />
+  ),
+  td: (props: React.ComponentProps<"td">) => (
+    <td
+      className="border-b border-border/50 px-4 py-3 align-top leading-relaxed text-muted"
+      {...props}
+    />
+  ),
+  tr: (props: React.ComponentProps<"tr">) => (
+    <tr className="transition-colors hover:bg-white/[0.03]" {...props} />
+  ),
 };
 
 export function generateStaticParams() {

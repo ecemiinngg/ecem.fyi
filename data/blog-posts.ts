@@ -17,6 +17,58 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "microsoft-advertising-utm-auto-tagging",
+    title: "Microsoft Advertising UTM Auto Tagging Güncellemesi",
+    excerpt:
+      "Microsoft Advertising, tüm kampanyalar için tek bir UTM şablonu kullanmayı bıraktı. Her kampanya türü artık kendi yapısıyla geliyor — ve bu GA4'teki Default Channel Grouping'i doğrudan etkiliyor.",
+    category: "Paid Media",
+    date: "2026-09-10",
+    readTime: "2 min",
+    content: `
+Microsoft son günlerde hepimizi harekete geçiren bir güncelleme paylaştı.
+Kampanya izleme konusunda kritik bir değişikliğe gittiler.
+
+Microsoft Advertising, tüm kampanyalar için standart tek bir şablon
+uyguluyordu. **2 Eylül** itibariyle duyurulan bu güncelleme ile beraber her
+kampanya artık kendi özel UTM yapısına sahip olacak. Böylece daha doğru bir
+sınıflandırmanın önü açılmış oldu.
+
+## Bu güncellemeyle hayatımızda ne değişiyor?
+
+Bu güncelleme, özellikle Google Analytics 4 (GA4) panellerindeki **Default
+Channel Grouping** (Varsayılan Kanal Gruplaması) mekanizmasını doğrudan
+etkiliyor. Uzun süredir Microsoft Ads trafiği genel olarak Paid Search grubunda
+toplanıyordu. Yeni yapıyla birlikte her kampanya türü GA4'te hak ettiği doğru
+kanala yerleşmeye başlıyor.
+
+| Kampanya Türü | UTM Source | UTM Medium | Ekstra / Suffix | GA4 Kanal Grubu |
+| --- | --- | --- | --- | --- |
+| **Search (Arama)** | \`bing\` | \`cpc\` | — | Paid Search |
+| **Audience Ads** | \`msads\` | \`cpm\` | — | Display |
+| **Shopping Ads** | \`msads\` | \`cpc\` | campaign suffix: \`shopping\` | Paid Shopping |
+| **Video** | \`bing_video\` | \`cpc\` | — | Paid Video |
+| **Performance Max** | \`msads\` | \`cross-network\` | — | Cross-network |
+
+Bu değişim performans raporlarında ani dalgalanmalar görünmesine neden olabilir.
+Örneğin önceden Paid Search altında görünen alışveriş veya display
+kampanyalarınız artık doğru kanallara ayrılacağı için search kampanya
+performansınız düşüş gösterebilir.
+
+## Peki bu durumda ne yapmalıyız?
+
+Bu geçiş sürecinde veri bütünlüğünü korumak için;
+
+1. Microsoft Advertising panelinizde **Auto-Tagging** ayarlarının aktif
+   olduğundan ve yeni şablonların doğru yansıdığından emin olun.
+2. Raporlarınızdaki ani düşüş veya artışları yanlış yorumlamamak adına, trafik
+   kaynaklarının yukarıdaki tabloya göre doğru kategorize edilip edilmediğini
+   GA4 **"Traffic Acquisition"** raporundan kontrol edin.
+
+Böylece değişime ayak uydurarak doğru sınıflandırma ile veri bütünlüğünü
+koruyabiliriz.
+`,
+  },
+  {
     slug: "silent-sdk-death-appsflyer-bigquery",
     title: "Catching a Silent AppsFlyer / Adjust SDK Death in BigQuery",
     excerpt:

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Bungee, Press_Start_2P } from "next/font/google";
+import { Inter, JetBrains_Mono, Pixelify_Sans, Press_Start_2P } from "next/font/google";
 import { GoogleTagManager } from "@next/third-parties/google";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
@@ -15,10 +15,10 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
-const bungee = Bungee({
-  variable: "--font-bungee",
-  subsets: ["latin"],
-  weight: "400",
+const pixelify = Pixelify_Sans({
+  variable: "--font-pixelify",
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
 });
 
 const pressStart = Press_Start_2P({
@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} ${bungee.variable} ${pressStart.variable} h-full antialiased`}
+      className={`${inter.variable} ${jetbrainsMono.variable} ${pixelify.variable} ${pressStart.variable} h-full antialiased`}
     >
       <GoogleTagManager gtmId="GTM-T7PSRCZK" />
       <body className="min-h-full flex flex-col bg-background text-foreground">

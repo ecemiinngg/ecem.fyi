@@ -24,7 +24,7 @@ function preRenderer(props: React.ComponentProps<"pre">) {
   }
   return (
     <pre
-      className="mb-6 overflow-x-auto rounded-xl border border-border bg-background-alt p-4 font-mono text-sm [&_code]:bg-transparent [&_code]:p-0 [&_code]:text-foreground"
+      className="mb-6 overflow-x-auto rounded-none border-2 border-border bg-background-alt p-4 font-mono text-sm [&_code]:bg-transparent [&_code]:p-0 [&_code]:text-foreground"
       {...props}
     />
   );
@@ -78,7 +78,7 @@ const mdxComponents = {
   // GFM tables. Wrapped so a wide table scrolls on its own instead of
   // pushing the article into a horizontal scroll.
   table: (props: React.ComponentProps<"table">) => (
-    <div className="mb-6 overflow-x-auto rounded-xl border border-border">
+    <div className="mb-6 overflow-x-auto rounded-none border-2 border-border">
       <table className="w-full border-collapse text-left text-sm" {...props} />
     </div>
   ),
@@ -135,7 +135,7 @@ export default async function BlogPostPage({
         <ArrowLeft className="h-3.5 w-3.5" /> Back to blog
       </Link>
       <Badge className="mb-4 border-accent/30 text-accent">{post.category}</Badge>
-      <h1 className="mb-4 text-3xl font-semibold leading-tight sm:text-4xl">
+      <h1 className="mb-4 font-display text-4xl leading-tight sm:text-5xl">
         {post.title}
       </h1>
       <div className="mb-12 flex items-center gap-3 text-sm text-muted">
@@ -149,7 +149,7 @@ export default async function BlogPostPage({
         <span>·</span>
         <span>{post.readTime} read</span>
       </div>
-      <div className="text-base">
+      <div className="article-content text-base">
         <MDXRemote
           source={post.content}
           components={mdxComponents}

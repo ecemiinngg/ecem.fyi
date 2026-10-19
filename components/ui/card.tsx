@@ -5,7 +5,7 @@ export function Card({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "pixel-panel rounded-md p-6 transition-transform duration-150 hover:-translate-y-1 hover:border-accent",
+        "pixel-panel p-6 transition-[transform,border-color] duration-150 group-hover:-translate-y-1 group-hover:border-accent group-focus-visible:border-accent",
         className
       )}
       {...props}

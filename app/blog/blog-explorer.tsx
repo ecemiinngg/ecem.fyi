@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
-import { cn } from "@/lib/utils";
 import BlogCard from "@/components/blog-card";
 import FadeIn from "@/components/fade-in";
 import type { BlogCategory, BlogPost } from "@/data/blog-posts";
@@ -31,30 +30,27 @@ export default function BlogExplorer({
 
   return (
     <div>
-      <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-10 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
         <div className="flex flex-wrap gap-2">
           {(["All", ...categories] as const).map((c) => (
             <button
               key={c}
               onClick={() => setCategory(c)}
-              className={cn(
-                "rounded-sm px-4 py-2 text-sm font-medium transition-colors",
-                category === c
-                  ? "border-2 border-foreground bg-accent text-background shadow-[3px_3px_0_rgba(0,0,0,0.4)]"
-                  : "border-2 border-border text-muted hover:text-foreground hover:bg-white/5"
-              )}
+              aria-pressed={category === c}
+              className="retro-control px-3 py-2"
             >
               {c}
             </button>
           ))}
         </div>
-        <div className="relative w-full sm:w-64">
+        <div className="relative w-full sm:max-w-sm xl:w-64 xl:shrink-0">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search posts..."
-            className="w-full rounded-sm border-2 border-border bg-background-alt py-2.5 pl-9 pr-4 text-sm outline-none placeholder:text-muted focus:border-accent"
+            aria-label="Search posts"
+            className="retro-input w-full py-2.5 pl-9 pr-4 text-sm outline-none placeholder:text-muted focus:border-accent"
           />
         </div>
       </div>

@@ -63,7 +63,7 @@ const ROOM_SPRITES: RoomSpriteItem[] = [
     title: 'Yoga & Pilates Corner',
     badge: 'LIFE & BALANCE',
     spriteSrc: '/sprite_ecem_yoga.png',
-    hoverSpriteSrc: '/sprite_ecem_yoga_hover.png',
+    hoverSpriteSrc: '/sprite_ecem_yoga_stretch.png',
     style: { top: '63.9%', left: '11.6%', width: '31.8%', height: '26.5%' },
     walkTarget: { x: 34, y: 62 },
     dialog: 'When I am not debugging tracking specs or SQL queries, you will find me here doing',
@@ -208,6 +208,7 @@ export default function RetroRoomHero() {
 
   return (
     <section className="relative w-full bg-[#0b0d1e] text-slate-100 overflow-hidden px-4 py-6 md:px-10 md:py-8 flex flex-col justify-between select-none border-b-4 border-slate-800/80">
+      <link rel="preload" as="image" href="/sprite_ecem_yoga_stretch.png" />
       <div className="max-w-7xl w-full mx-auto flex flex-wrap items-center justify-between gap-4 z-20">
         <div className="flex items-center gap-3 bg-[#131731] border-2 border-[#6495ed] px-3.5 py-1.5 shadow-[4px_4px_0_#000]">
           <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -287,9 +288,10 @@ export default function RetroRoomHero() {
               const isSelected = selectedId === item.id;
               const isHovered = hoveredId === item.id;
               const isActive = isSelected || isHovered;
+              const showHoverSprite = item.id === 'yoga' ? isHovered : isActive;
               return (
                 <motion.button key={item.id} type="button" style={item.style} onMouseEnter={() => { setHoveredId(item.id); triggerAnalyticsEvent(item, 'hover'); }} onMouseLeave={() => setHoveredId(null)} onClick={() => { setSelectedId(item.id); triggerAnalyticsEvent(item, 'click'); }} whileHover={{ scale: 1.06, y: -3 }} whileTap={{ scale: 0.96 }} animate={item.id === 'yoga' ? { y: [0, -2.5, 0] } : { y: isSelected ? -2 : 0 }} transition={item.id === 'yoga' ? { duration: 2.6, repeat: Infinity, ease: 'easeInOut' } : { type: 'spring', stiffness: 300, damping: 20 }} className="absolute group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-300 z-10 cursor-pointer" aria-label={item.title} aria-pressed={isSelected} onFocus={() => setHoveredId(item.id)} onBlur={() => setHoveredId(null)}>
-                  <Image unoptimized fill src={isActive ? item.hoverSpriteSrc : item.spriteSrc} alt={item.title} className={`w-full h-full object-contain [image-rendering:pixelated] transition-all duration-150 ${isActive ? 'drop-shadow-[0_0_10px_rgba(254,249,195,0.85)] opacity-100' : 'opacity-95'}`} />
+                  <Image unoptimized fill src={showHoverSprite ? item.hoverSpriteSrc : item.spriteSrc} alt={item.title} className={`w-full h-full object-contain [image-rendering:pixelated] transition-all duration-150 ${isActive ? 'drop-shadow-[0_0_10px_rgba(254,249,195,0.85)] opacity-100' : 'opacity-95'}`} />
                   <AnimatePresence>
                     {isActive && (
                       <motion.span initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 4 }} className="absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#090b16] text-amber-300 border border-[#7aa2e3] px-2 py-0.5 font-mono text-[10px] font-bold shadow-[2px_2px_0_#000] pointer-events-none z-30">

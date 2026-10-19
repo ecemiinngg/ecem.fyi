@@ -6,12 +6,6 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Volume2, VolumeX, Eye, Home, Sparkles, Terminal, ArrowRight, Play, User } from 'lucide-react';
 
-declare global {
-  interface Window {
-    dataLayer?: Record<string, unknown>[];
-  }
-}
-
 export type HotspotId =
   | 'computer'
   | 'library'
@@ -27,14 +21,12 @@ interface RoomSpriteItem {
   badge: string;
   spriteSrc: string;
   hoverSpriteSrc: string;
-  /** Position & Size relative to the 660x660 circular room_base.png */
   style: {
     top: string;
     left: string;
     width: string;
     height: string;
   };
-  /** Where the walking Ecem character moves when this item is selected */
   walkTarget: { x: number; y: number };
   dialog: string;
   highlightWords: string;
@@ -200,7 +192,6 @@ export default function RetroRoomHero({
     ROOM_SPRITES.find((item) => item.id === (hoveredId || selectedId)) ||
     ROOM_SPRITES[0];
 
-  // Push real event to window.dataLayer for GTM / GA4 & update live inspector
   const triggerAnalyticsEvent = useCallback(
     (item: RoomSpriteItem, actionType: 'hover' | 'click') => {
       const payload = {
@@ -216,14 +207,14 @@ export default function RetroRoomHero({
       setXp((prev) => prev + (actionType === 'click' ? item.gtmEvent.xp_reward : 5));
 
       if (typeof window !== 'undefined') {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push(payload);
+        const win = window as unknown as { dataLayer?: Record<string, unknown>[] };
+        win.dataLayer = win.dataLayer || [];
+        win.dataLayer.push(payload);
       }
     },
     []
   );
 
-  // Keyboard navigation (Arrow keys / WASD to cycle through room items)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (['ArrowRight', 'ArrowDown', 'd', 's'].includes(e.key)) {
@@ -247,7 +238,6 @@ export default function RetroRoomHero({
 
   return (
     <section className="relative min-h-[88vh] w-full bg-[#0b0d1e] text-slate-100 overflow-hidden px-4 py-6 md:px-10 md:py-8 flex flex-col justify-between select-none">
-      {/* Top Retro HUD Control Bar */}
       <div className="max-w-7xl w-full mx-auto flex flex-wrap items-center justify-between gap-4 z-20">
         <div className="flex items-center gap-3 bg-[#131731] border-2 border-[#6495ed] px-3.5 py-1.5 shadow-[4px_4px_0_#000]">
           <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -259,7 +249,6 @@ export default function RetroRoomHero({
           </span>
         </div>
 
-        {/* Center Retro Icon Controls (Matches original WebXP top bar) */}
         <div className="flex items-center gap-2">
           <button
             onClick={() => setSelectedId('computer')}
@@ -305,12 +294,8 @@ export default function RetroRoomHero({
         </div>
       </div>
 
-      {/* Main Split Grid: Left (Logo + Avatar + Dialog) | Right (Interactive Circular Sprite Room) */}
       <div className="max-w-7xl w-full mx-auto my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center py-4">
-        
-        {/* LEFT COLUMN: Ecem.fyi Pixel Logo + Portrait Avatar + RPG Dialog Box */}
         <div className="lg:col-span-6 flex flex-col justify-between space-y-6 z-10">
-          {/* Pixel Logo */}
           <motion.div
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -323,9 +308,7 @@ export default function RetroRoomHero({
             />
           </motion.div>
 
-          {/* Character Portrait + Dialog Box Wrapper */}
           <div className="relative flex flex-col sm:flex-row items-start sm:items-end gap-0 sm:gap-4 pt-4">
-            {/* Ecem Pixel Portrait Sprite */}
             <motion.div
               whileHover={{ scale: 1.03 }}
               className="w-40 sm:w-48 md:w-56 shrink-0 relative z-20 -mb-2 sm:mb-0"
@@ -337,9 +320,7 @@ export default function RetroRoomHero({
               />
             </motion.div>
 
-            {/* Retro RPG Dialog Box */}
             <div className="w-full bg-[#090b16]/95 border-2 border-[#5b7db1] p-5 shadow-[8px_8px_0_#000] relative z-10">
-              {/* Nameplate Badge */}
               <div className="
                 absolute -top-4 left-4 bg-[#6390c8] text-[#090b16]
                 font-mono font-extrabold text-sm px-4 py-0.5
@@ -357,7 +338,6 @@ export default function RetroRoomHero({
                 </span>
               </div>
 
-              {/* Animated Typewriter-feel Dialog Text */}
               <AnimatePresence mode="wait">
                 <motion.p
                   key={activeItem.id}
@@ -374,7 +354,6 @@ export default function RetroRoomHero({
                 </motion.p>
               </AnimatePresence>
 
-              {/* Dialog Action Buttons (BLOGS / CANCEL style) */}
               <div className="mt-5 flex flex-wrap items-center gap-3">
                 <Link
                   href={activeItem.primaryCta.href}
@@ -396,7 +375,6 @@ export default function RetroRoomHero({
             </div>
           </div>
 
-          {/* Live GTM / DataLayer Inspector Drawer */}
           <AnimatePresence>
             {showDataLayer && (
               <motion.div
@@ -420,17 +398,14 @@ export default function RetroRoomHero({
           </AnimatePresence>
         </div>
 
-        {/* RIGHT COLUMN: Interactive Circular Room + Individual Animated Sprites */}
         <div className="lg:col-span-6 flex flex-col items-center justify-center">
           <div className="relative w-full max-w-[540px] aspect-square">
-            {/* Base Circular Room Map */}
             <img
               src="/sprites/room_base.png"
               alt="Ecem.fyi Pixel Room"
               className="w-full h-full object-contain [image-rendering:pixelated] drop-shadow-[0_14px_30px_rgba(0,0,0,0.85)]"
             />
 
-            {/* Individual Interactive Room Sprites layered on top! */}
             {ROOM_SPRITES.map((item) => {
               const isSelected = selectedId === item.id;
               const isHovered = hoveredId === item.id;
@@ -455,7 +430,6 @@ export default function RetroRoomHero({
                   animate={
                     item.id === 'yoga'
                       ? {
-                          // Subtle breathing/stretching animation for Ecem on the Yoga Mat!
                           y: [0, -2.5, 0],
                         }
                       : {
@@ -470,7 +444,6 @@ export default function RetroRoomHero({
                   className="absolute group focus:outline-none z-10 cursor-pointer"
                   aria-label={item.title}
                 >
-                  {/* Sprite Image (Swaps to highlighted pixel outline on hover/select) */}
                   <img
                     src={isActive ? item.hoverSpriteSrc : item.spriteSrc}
                     alt={item.title}
@@ -481,7 +454,6 @@ export default function RetroRoomHero({
                     }`}
                   />
 
-                  {/* Floating Pixel Tooltip Label on Hover/Select */}
                   <AnimatePresence>
                     {isActive && (
                       <motion.span
@@ -498,7 +470,6 @@ export default function RetroRoomHero({
               );
             })}
 
-            {/* Optional Walking Ecem Sprite (When user switches to 'POSE: WALK', Ecem walks to the selected furniture!) */}
             <AnimatePresence>
               {characterMode === 'walk' && (
                 <motion.div

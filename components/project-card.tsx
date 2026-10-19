@@ -12,7 +12,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           <span className="font-mono text-xs text-muted">{project.year}</span>
           <ArrowUpRight className="h-4 w-4 text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
         </div>
-        <h3 className="text-lg font-semibold leading-snug text-foreground">
+        <h3 className="font-display text-2xl leading-snug text-foreground">
           {project.title}
         </h3>
         <p className="flex-1 text-sm leading-relaxed text-muted">

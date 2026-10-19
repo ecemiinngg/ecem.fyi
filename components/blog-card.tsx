@@ -14,7 +14,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
           </Badge>
           <ArrowUpRight className="h-4 w-4 text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
         </div>
-        <h3 className="text-lg font-semibold leading-snug text-foreground">
+        <h3 className="font-display text-2xl leading-snug text-foreground">
           {post.title}
         </h3>
         <p className="line-clamp-3 flex-1 text-sm leading-relaxed text-muted">

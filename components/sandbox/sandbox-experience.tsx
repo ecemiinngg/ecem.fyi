@@ -110,38 +110,38 @@ export default function SandboxExperience() {
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
-      <div>
+    <div className="grid gap-8 2xl:grid-cols-[minmax(0,1fr)_300px]">
+      <div className="min-w-0">
         {step === "browse" && (
           <>
-            <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-lg font-semibold">Sandbox Store</h2>
+            <div className="mb-6 flex flex-wrap gap-3 items-center justify-between">
+              <h2 className="font-display text-2xl">Sandbox Store</h2>
               <Badge>view_item_list fired on load</Badge>
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
               {products.map((product) => (
                 <div
                   key={product.id}
-                  className="pixel-panel flex flex-col gap-4 rounded-md p-5"
+                  className="pixel-panel flex flex-col gap-4 p-5"
                 >
                   <div
-                    className={`flex h-28 items-center justify-center rounded-xl bg-gradient-to-br ${product.gradient}`}
+                    className="flex h-28 items-center justify-center border-2 border-border bg-[#1a203b] text-accent"
                   >
                     <ProductIcon
                       icon={product.icon}
-                      className="h-10 w-10 text-white/90"
+                      className="h-10 w-10 drop-shadow-[3px_3px_0_#03040b]"
                     />
                   </div>
                   <div>
                     <p className="font-mono text-xs text-muted">
                       {product.brand} · {product.category}
                     </p>
-                    <h3 className="mt-1 font-semibold">{product.name}</h3>
+                    <h3 className="font-display mt-1 text-2xl">{product.name}</h3>
                     <p className="mt-1 text-sm text-muted">
                       {product.description}
                     </p>
                   </div>
-                  <div className="mt-auto flex items-center justify-between">
+                  <div className="mt-auto flex flex-wrap gap-3 items-center justify-between">
                     <span className="font-mono text-lg">
                       ${product.price.toFixed(2)}
                     </span>
@@ -157,11 +157,11 @@ export default function SandboxExperience() {
 
         {step === "checkout" && (
           <div>
-            <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-lg font-semibold">Checkout</h2>
+            <div className="mb-6 flex flex-wrap gap-3 items-center justify-between">
+              <h2 className="font-display text-2xl">Checkout</h2>
               <Badge>begin_checkout fired</Badge>
             </div>
-            <div className="pixel-panel flex flex-col gap-4 rounded-md p-6">
+            <div className="pixel-panel flex flex-col gap-4 rounded-none p-6">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label className="mb-1.5 block text-xs text-muted">
@@ -170,7 +170,7 @@ export default function SandboxExperience() {
                   <input
                     disabled
                     placeholder="4242 4242 4242 4242"
-                    className="w-full rounded-lg border border-border bg-white/5 px-3 py-2.5 text-sm text-muted placeholder:text-muted/60"
+                    className="retro-input w-full px-3 py-2.5 text-sm text-muted placeholder:text-muted/60"
                   />
                 </div>
                 <div>
@@ -180,7 +180,7 @@ export default function SandboxExperience() {
                   <input
                     disabled
                     placeholder="12 / 29"
-                    className="w-full rounded-lg border border-border bg-white/5 px-3 py-2.5 text-sm text-muted placeholder:text-muted/60"
+                    className="retro-input w-full px-3 py-2.5 text-sm text-muted placeholder:text-muted/60"
                   />
                 </div>
               </div>
@@ -209,9 +209,9 @@ export default function SandboxExperience() {
         )}
 
         {step === "success" && lastOrder && (
-          <div className="pixel-panel flex flex-col items-center gap-4 rounded-md p-10 text-center">
+          <div className="pixel-panel flex flex-col items-center gap-4 rounded-none p-10 text-center">
             <CheckCircle2 className="h-12 w-12 text-accent-3" />
-            <h2 className="text-xl font-semibold">Purchase complete</h2>
+            <h2 className="font-display text-3xl">Purchase complete</h2>
             <p className="text-muted">
               Transaction{" "}
               <code className="rounded bg-white/10 px-1.5 py-0.5 text-accent-3">
@@ -228,8 +228,8 @@ export default function SandboxExperience() {
         )}
       </div>
 
-      <div className="lg:sticky lg:top-24 lg:self-start">
-        <div className="pixel-panel rounded-md p-5">
+      <div className="2xl:sticky 2xl:top-24 2xl:self-start">
+        <div className="pixel-panel rounded-none p-5">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-2 font-semibold">
               <ShoppingCart className="h-4 w-4 text-accent" /> Cart
@@ -248,7 +248,7 @@ export default function SandboxExperience() {
               {cart.map((line) => (
                 <li
                   key={line.product.id}
-                  className="flex items-center gap-3 rounded-xl border border-border bg-white/5 p-3"
+                  className="flex items-center gap-3 rounded-none border-2 border-border bg-white/5 p-3"
                 >
                   <div className="flex-1">
                     <p className="text-sm font-medium leading-snug">
@@ -261,7 +261,7 @@ export default function SandboxExperience() {
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => decrementLine(line)}
-                      className="rounded-md border border-border p-1 text-muted hover:text-foreground"
+                      className="retro-control p-1"
                       aria-label="Decrease quantity"
                     >
                       <Minus className="h-3 w-3" />
@@ -271,14 +271,14 @@ export default function SandboxExperience() {
                     </span>
                     <button
                       onClick={() => addToCart(line.product)}
-                      className="rounded-md border border-border p-1 text-muted hover:text-foreground"
+                      className="retro-control p-1"
                       aria-label="Increase quantity"
                     >
                       <Plus className="h-3 w-3" />
                     </button>
                     <button
                       onClick={() => removeLine(line)}
-                      className="ml-1 rounded-md p-1 text-muted hover:text-rose-400"
+                      className="retro-control ml-1 p-1 hover:text-accent-4"
                       aria-label="Remove item"
                     >
                       <Trash2 className="h-3 w-3" />

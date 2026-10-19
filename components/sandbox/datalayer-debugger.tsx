@@ -65,14 +65,14 @@ export default function DataLayerDebugger() {
       <button
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "pixel-press fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-md border-2 border-foreground bg-background-alt px-5 py-3 text-sm font-medium shadow-[4px_4px_0_rgba(0,0,0,0.45)]",
+          "retro-control pixel-press fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-none border-2 border-[#5b7db1] bg-background-alt px-5 py-3 text-sm font-medium shadow-[4px_4px_0_rgba(0,0,0,0.45)]",
           open && "translate-y-32 opacity-0 pointer-events-none lg:translate-y-0 lg:opacity-100 lg:pointer-events-auto lg:hidden"
         )}
       >
         <Terminal className="h-4 w-4 text-accent" />
         DataLayer
         {ecommerceEventCount > 0 && (
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent text-[11px] font-semibold text-background">
+          <span className="flex h-5 w-5 items-center justify-center rounded-none bg-accent text-[11px] font-semibold text-background">
             {ecommerceEventCount}
           </span>
         )}
@@ -80,7 +80,7 @@ export default function DataLayerDebugger() {
 
       <aside
         className={cn(
-          "fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col border-l border-border bg-background-alt/95 shadow-2xl backdrop-blur-xl transition-transform duration-300 lg:sticky lg:top-16 lg:z-10 lg:h-[calc(100vh-4rem)] lg:w-[400px] lg:max-w-[400px] lg:flex-shrink-0 lg:translate-x-0 lg:border-l lg:shadow-none",
+          "fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col border-l border-border bg-[#090b16]/95 shadow-2xl backdrop-blur-xl transition-transform duration-300 lg:sticky lg:top-16 lg:z-10 lg:h-[calc(100vh-4rem)] lg:w-[340px] lg:max-w-[340px] lg:flex-shrink-0 lg:translate-x-0 lg:border-l lg:shadow-none",
           open ? "translate-x-0" : "translate-x-full lg:translate-x-0"
         )}
       >
@@ -92,7 +92,7 @@ export default function DataLayerDebugger() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setLogs([])}
-              className="rounded-lg p-1.5 text-muted transition-colors hover:bg-white/5 hover:text-foreground"
+              className="retro-control p-1.5"
               aria-label="Clear log"
               title="Clear log"
             >
@@ -100,7 +100,7 @@ export default function DataLayerDebugger() {
             </button>
             <button
               onClick={() => setOpen(false)}
-              className="rounded-lg p-1.5 text-muted transition-colors hover:bg-white/5 hover:text-foreground lg:hidden"
+              className="retro-control p-1.5 lg:hidden"
               aria-label="Close"
             >
               <X className="h-4 w-4" />
@@ -131,7 +131,7 @@ export default function DataLayerDebugger() {
                 return (
                   <li
                     key={log.id}
-                    className="animate-fade-up rounded-xl border border-border bg-black/30 p-3"
+                    className="animate-fade-up rounded-none border-2 border-border bg-black/30 p-3"
                   >
                     <div className="mb-2 flex items-center justify-between">
                       <span

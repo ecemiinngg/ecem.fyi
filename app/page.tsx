@@ -24,12 +24,12 @@ export default function Home() {
         <section id="about" className="scroll-mt-24 px-6 py-20 sm:py-28 border-b border-slate-800/60">
           <div className="mx-auto max-w-6xl">
             <div>
-              <Badge className="mb-6 border-blue-400/30 text-blue-400 font-mono">
+              <Badge className="mb-6 border-accent/30 text-accent font-mono">
                 Data & Analytics Engineer
               </Badge>
-              <h1 className="font-display max-w-xl text-4xl leading-[1.15] tracking-tight sm:text-5xl text-slate-100">
+              <h1 className="font-display max-w-2xl text-4xl leading-[1.15] tracking-tight sm:text-6xl text-slate-100">
                 Turning{" "}
-                <span className="text-blue-400 font-bold">raw events</span> into
+                <span className="text-accent">raw events</span> into
                 reliable measurement
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-400">
@@ -73,10 +73,10 @@ export default function Home() {
             <FadeIn>
               <div className="mb-10 flex items-end justify-between">
                 <div>
-                  <p className="mb-2 font-mono text-xs uppercase tracking-widest text-blue-400">
+                  <p className="section-label mb-3">
                     Writing
                   </p>
-                  <h2 className="font-display text-2xl sm:text-3xl text-slate-100">
+                  <h2 className="font-display text-3xl sm:text-4xl text-slate-100">
                     From the blog
                   </h2>
                 </div>
@@ -109,10 +109,10 @@ export default function Home() {
             <FadeIn>
               <div className="mb-10 flex items-end justify-between">
                 <div>
-                  <p className="mb-2 font-mono text-xs uppercase tracking-widest text-emerald-400">
+                  <p className="section-label mb-3 text-accent-2">
                     Selected Work
                   </p>
-                  <h2 className="font-display text-2xl sm:text-3xl text-slate-100">
+                  <h2 className="font-display text-3xl sm:text-4xl text-slate-100">
                     Featured projects
                   </h2>
                 </div>
@@ -136,11 +136,11 @@ export default function Home() {
 
         <section className="px-6 py-24">
           <FadeIn>
-            <div className="border-2 border-slate-800 bg-[#070913] mx-auto max-w-4xl rounded-md p-10 text-center sm:p-16 shadow-[8px_8px_0_#000]">
-              <p className="mb-3 font-mono text-xs uppercase tracking-widest text-amber-300">
+            <div className="pixel-panel bg-[#070913] mx-auto max-w-4xl p-6 text-center sm:p-16 shadow-[8px_8px_0_#000]">
+              <p className="mb-3 font-mono text-xs uppercase tracking-widest text-accent-2">
                 Ecommerce DataLayer Sandbox
               </p>
-              <h2 className="font-display text-2xl sm:text-3xl text-slate-100">
+              <h2 className="font-display text-3xl sm:text-4xl text-slate-100">
                 See GA4 events fire in real time
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-slate-400">

@@ -26,7 +26,7 @@ const PLAYABLE_EMBEDS: Record<string, () => React.ReactNode> = {
   "olympos-social-network": () => <OlymposGame />,
   "rewrite-the-epic": () => <RewriteTheEpic />,
   "fitai-virtual-try-on": () => (
-    <div className="h-[720px] overflow-y-auto rounded-2xl border border-border">
+    <div className="h-[720px] overflow-y-auto rounded-none border-2 border-border">
       <VirtualTryOn />
     </div>
   ),

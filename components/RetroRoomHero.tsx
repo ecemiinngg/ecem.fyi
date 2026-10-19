@@ -234,12 +234,8 @@ export default function RetroRoomHero() {
 
       <div className="max-w-7xl w-full mx-auto my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center py-6">
         <div className="lg:col-span-6 min-w-0 flex flex-col justify-between space-y-6 z-10">
-          <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} className="w-64 sm:w-80 md:w-96">
-            <Image unoptimized width={440} height={130} src="/ecem_fyi_logo.png" alt="Ecem.fyi" className="w-full h-auto object-contain [image-rendering:pixelated] drop-shadow-[0_0_18px_rgba(96,165,250,0.45)]" />
-          </motion.div>
-
-          <div className="relative flex flex-col sm:flex-row items-start sm:items-end gap-0 sm:gap-4 pt-4">
-            <motion.div whileHover={{ scale: 1.03 }} className="w-40 sm:w-48 md:w-56 shrink-0 relative z-20 -mb-2 sm:mb-0">
+          <div className="relative flex flex-col sm:flex-row items-start sm:items-end gap-6 sm:gap-4 pt-4">
+            <motion.div whileHover={{ scale: 1.03 }} className="w-40 sm:w-48 md:w-56 shrink-0 relative z-20">
               <Image unoptimized width={310} height={333} src="/ecem_avatar_portrait.png" alt="Ecem Portrait" className="w-full h-auto [image-rendering:pixelated] drop-shadow-[6px_6px_0_#000]" />
             </motion.div>
 

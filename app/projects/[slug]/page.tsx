@@ -46,7 +46,7 @@ export default async function ProjectDetailPage({
         <span>·</span>
         <span>{project.role}</span>
       </div>
-      <h1 className="mb-6 text-3xl font-semibold leading-tight sm:text-4xl">
+      <h1 className="mb-6 font-display text-4xl leading-tight sm:text-5xl">
         {project.title}
       </h1>
       <p className="mb-8 text-lg leading-relaxed text-muted">
@@ -86,7 +86,7 @@ export default async function ProjectDetailPage({
         </div>
       )}
 
-      <div className="pixel-panel mb-10 rounded-md p-6 sm:p-8">
+      <div className="pixel-panel mb-10 p-6 sm:p-8">
         <p className="leading-relaxed text-foreground/90">
           {project.description}
         </p>
@@ -94,12 +94,12 @@ export default async function ProjectDetailPage({
 
       {hasPlayableEmbed(project.slug) && (
         <div className="mb-10">
-          <h2 className="mb-4 text-lg font-semibold">Try it</h2>
+          <h2 className="font-display mb-4 text-2xl text-accent">Try it</h2>
           <PlayableEmbed slug={project.slug} />
         </div>
       )}
 
-      <h2 className="mb-4 text-lg font-semibold">Highlights</h2>
+      <h2 className="font-display mb-4 text-2xl text-accent">Highlights</h2>
       <ul className="space-y-3">
         {project.highlights.map((h) => (
           <li key={h} className="flex items-start gap-3 text-muted">

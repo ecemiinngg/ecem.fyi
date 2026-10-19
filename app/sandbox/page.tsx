@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 export default function SandboxPage() {
   return (
     <div className="flex flex-col lg:flex-row">
-      <div className="flex-1 px-6 py-16 lg:px-10">
+      <div className="min-w-0 flex-1 px-6 py-16 lg:px-10">
         <div className="mx-auto max-w-4xl lg:mx-0 lg:max-w-none">
           <Badge className="mb-4 border-accent-3/30 text-accent-3">
             E-Commerce DataLayer Sandbox
           </Badge>
-          <h1 className="font-display mb-4 text-3xl sm:text-4xl">
+          <h1 className="font-display mb-4 text-4xl sm:text-5xl">
             Test GA4 ecommerce events live
           </h1>
           <p className="mb-10 max-w-2xl text-muted">

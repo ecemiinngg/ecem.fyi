@@ -147,13 +147,13 @@ export default function SqlEditor({
   }
 
   return (
-    <figure className="mb-6 overflow-hidden rounded-xl border border-border bg-[#0b1424]">
+    <figure className="mb-6 overflow-hidden rounded-none border-2 border-border bg-[#090b16]">
       {/* chrome */}
-      <div className="flex items-center gap-3 border-b border-border/70 bg-background-alt/60 px-4 py-2.5">
+      <div className="flex flex-wrap items-center gap-3 border-b border-border/70 bg-background-alt/60 px-4 py-2.5">
         <div className="flex gap-1.5" aria-hidden>
-          <span className="h-2.5 w-2.5 rounded-full bg-accent-4/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-accent-2/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-accent-3/80" />
+          <span className="h-2.5 w-2.5 rounded-none bg-accent-4/80" />
+          <span className="h-2.5 w-2.5 rounded-none bg-accent-2/80" />
+          <span className="h-2.5 w-2.5 rounded-none bg-accent-3/80" />
         </div>
         <span className="font-mono text-xs text-muted">{filename}</span>
         <span className="rounded border border-accent/30 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-accent">
@@ -185,7 +185,7 @@ export default function SqlEditor({
             <button
               type="button"
               onClick={() => setValue(initial)}
-              className="inline-flex items-center gap-1 rounded px-2 py-1 font-mono text-[11px] text-muted transition-colors hover:bg-white/5 hover:text-foreground"
+              className="retro-control px-2 py-1 text-[11px]"
             >
               <RotateCcw className="h-3 w-3" /> Reset
             </button>
@@ -194,7 +194,7 @@ export default function SqlEditor({
             type="button"
             onClick={copy}
             aria-label="Copy query"
-            className="inline-flex items-center gap-1 rounded px-2 py-1 font-mono text-[11px] text-muted transition-colors hover:bg-white/5 hover:text-foreground"
+            className="retro-control px-2 py-1 text-[11px]"
           >
             {copied ? (
               <>

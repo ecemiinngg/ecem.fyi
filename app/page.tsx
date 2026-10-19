@@ -9,12 +9,14 @@ import ProjectCard from "@/components/project-card";
 import FadeIn from "@/components/fade-in";
 import { blogPosts } from "@/data/blog-posts";
 import { projects } from "@/data/projects";
+import RetroRoomHero from '@/components/RetroRoomHero';
 
 export default function Home() {
   const latestPosts = blogPosts.slice(0, 3);
   const featuredProjects = projects.filter((p) => p.featured).slice(0, 2);
 
   return (
+    <RetroRoomHero />
     <div className="relative flex flex-col">
       <SkyBackground />
       {/* Content sits above the fixed background. z-10 (not -z-10 on the

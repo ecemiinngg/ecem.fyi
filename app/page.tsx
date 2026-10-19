@@ -17,9 +17,9 @@ export default function Home() {
 
   return (
     <>
-      <RetroRoomHero />
+      <RetroRoomHero/>
       <div className="relative flex flex-col">
-        <SkyBackground />
+        <SkyBackground/>
         {/* Content sits above the fixed background. z-10 (not -z-10 on the
             background) because body's own background is opaque navy. */}
         <div className="relative z-10 flex flex-col">
@@ -42,28 +42,18 @@ export default function Home() {
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <LinkButton href="/sandbox" size="lg">
                     Try the DataLayer Sandbox
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="h-4 w-4"/>
                   </LinkButton>
-                  <LinkButton href="/projects" variant="outline" size="lg">
+                  <LinkButton href="/projects" size="lg" variant="outline">
                     View Projects
                   </LinkButton>
                 </div>
                 <div className="mt-10 flex items-center gap-5">
-                  <Link
-                    href="https://github.com/ecemiinngg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
-                  >
-                    <GithubIcon className="h-4 w-4" /> GitHub
+                  <Link className="flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent" href="https://github.com/ecemiinngg" rel="noopener noreferrer" target="_blank">
+                    <GithubIcon className="h-4 w-4"/> GitHub
                   </Link>
-                  <Link
-                    href="https://www.linkedin.com/in/ecembircan/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
-                  >
-                    <LinkedinIcon className="h-4 w-4" /> LinkedIn
+                  <Link className="flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent" href="https://www.linkedin.com/in/ecembircan/" rel="noopener noreferrer" target="_blank">
+                    <LinkedinIcon className="h-4 w-4"/> LinkedIn
                   </Link>
                 </div>
               </div>
@@ -82,26 +72,20 @@ export default function Home() {
                       From the blog
                     </h2>
                   </div>
-                  <Link
-                    href="/blog"
-                    className="hidden items-center gap-1 text-sm text-muted transition-colors hover:text-accent sm:flex"
-                  >
-                    All posts <ArrowRight className="h-3.5 w-3.5" />
+                  <Link className="hidden items-center gap-1 text-sm text-muted transition-colors hover:text-accent sm:flex" href="/blog">
+                    All posts <ArrowRight className="h-3.5 w-3.5"/>
                   </Link>
                 </div>
               </FadeIn>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {latestPosts.map((post, i) => (
-                  <FadeIn key={post.slug} delay={i * 0.08}>
-                    <BlogCard post={post} />
+                  <FadeIn * 0.08} delay="{i" key="{post.slug}">
+                    <BlogCard post="{post}"/>
                   </FadeIn>
                 ))}
               </div>
-              <Link
-                href="/blog"
-                className="mt-8 flex items-center gap-1 text-sm text-muted transition-colors hover:text-accent sm:hidden"
-              >
-                All posts <ArrowRight className="h-3.5 w-3.5" />
+              <Link className="mt-8 flex items-center gap-1 text-sm text-muted transition-colors hover:text-accent sm:hidden" href="/blog">
+                All posts <ArrowRight className="h-3.5 w-3.5"/>
               </Link>
             </div>
           </section>
@@ -118,18 +102,15 @@ export default function Home() {
                       Featured projects
                     </h2>
                   </div>
-                  <Link
-                    href="/projects"
-                    className="hidden items-center gap-1 text-sm text-muted transition-colors hover:text-accent sm:flex"
-                  >
-                    All projects <ArrowRight className="h-3.5 w-3.5" />
+                  <Link className="hidden items-center gap-1 text-sm text-muted transition-colors hover:text-accent sm:flex" href="/projects">
+                    All projects <ArrowRight className="h-3.5 w-3.5"/>
                   </Link>
                 </div>
               </FadeIn>
               <div className="grid gap-6 sm:grid-cols-2">
                 {featuredProjects.map((project, i) => (
-                  <FadeIn key={project.slug} delay={i * 0.08}>
-                    <ProjectCard project={project} />
+                  <FadeIn * 0.08} delay="{i" key="{project.slug}">
+                    <ProjectCard project="{project}"/>
                   </FadeIn>
                 ))}
               </div>
@@ -149,12 +130,12 @@ export default function Home() {
                   A working ecommerce flow wired to a live{" "}
                   <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-sm">
                     dataLayer
-                  </span>{" "}
+                  </code>{" "}
                   debugger — view_item_list, add_to_cart, begin_checkout, and
                   purchase, exactly as they'd hit GTM.
                 </p>
-                <LinkButton href="/sandbox" size="lg" className="mt-8">
-                  Open the Sandbox <ArrowRight className="h-4 w-4" />
+                <LinkButton className="mt-8" href="/sandbox" size="lg">
+                  Open the Sandbox <ArrowRight className="h-4 w-4"/>
                 </LinkButton>
               </div>
             </FadeIn>

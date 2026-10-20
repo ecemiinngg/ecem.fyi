@@ -1,3 +1,5 @@
+import { optimizedGtmPost } from "./optimized-gtm-post";
+
 export type BlogCategory =
   | "Analytics"
   | "Server-Side Tracking"
@@ -13,9 +15,13 @@ export interface BlogPost {
   date: string;
   readTime: string;
   content: string;
+  language?: string;
+  image?: string;
+  tableOfContents?: boolean;
 }
 
 export const blogPosts: BlogPost[] = [
+  optimizedGtmPost,
   {
     slug: "google-tag-manager-october-2026-update",
     title: "Google Tag Manager October 2026 Update: What Changed and How to Check Your GTM Container",

@@ -7,6 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import SqlEditor from "@/components/blog/sql-editor";
 import TaskCheckbox from "@/components/blog/task-checkbox";
+import { GtmArchitecture, GtmBenchmark } from "@/components/blog/gtm-visuals";
 import { blogPosts } from "@/data/blog-posts";
 
 /** A ```sql fence arrives as <pre><code class="language-sql">. Route those to
@@ -30,9 +31,15 @@ function preRenderer(props: React.ComponentProps<"pre">) {
   );
 }
 
+function headingId(text: string) {
+  return text.toLowerCase().replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-");
+}
+
 const mdxComponents = {
+  GtmArchitecture,
+  GtmBenchmark,
   h2: (props: React.ComponentProps<"h2">) => (
-    <h2 className="mt-10 mb-4 text-xl font-semibold text-foreground" {...props} />
+    <h2 id={typeof props.children === "string" ? headingId(props.children) : undefined} className="mt-10 mb-4 scroll-mt-24 text-xl font-semibold text-foreground" {...props} />
   ),
   h3: (props: React.ComponentProps<"h3">) => (
     <h3 className="mt-8 mb-3 text-lg font-semibold text-foreground" {...props} />
@@ -114,7 +121,28 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = blogPosts.find((p) => p.slug === slug);
   if (!post) return {};
-  return { title: post.title, description: post.excerpt };
+  const url = `https://ecem.fyi/blog/${post.slug}`;
+  return {
+    title: post.title,
+    description: post.excerpt,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.excerpt,
+      url,
+      siteName: "ecem.fyi",
+      publishedTime: post.date,
+      authors: ["Ecem Bircan"],
+      ...(post.image ? { images: [{ url: `https://ecem.fyi${post.image}`, width: 1200, height: 630, alt: post.title }] } : {}),
+    },
+    twitter: {
+      card: post.image ? "summary_large_image" : "summary",
+      title: post.title,
+      description: post.excerpt,
+      ...(post.image ? { images: [`https://ecem.fyi${post.image}`] } : {}),
+    },
+  };
 }
 
 export default async function BlogPostPage({
@@ -126,8 +154,24 @@ export default async function BlogPostPage({
   const post = blogPosts.find((p) => p.slug === slug);
   if (!post) notFound();
 
+  const headings = post.tableOfContents
+    ? [...post.content.matchAll(/^## (.+)$/gm)].map((match) => match[1])
+    : [];
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    author: { "@type": "Person", name: "Ecem Bircan", url: "https://ecem.fyi" },
+    mainEntityOfPage: `https://ecem.fyi/blog/${post.slug}`,
+    ...(post.language ? { inLanguage: post.language } : {}),
+    ...(post.image ? { image: `https://ecem.fyi${post.image}` } : {}),
+  };
+
   return (
-    <article className="mx-auto max-w-3xl px-6 py-20">
+    <article lang={post.language} className="mx-auto max-w-3xl px-6 py-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <Link
         href="/blog"
         className="mb-8 inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-accent"
@@ -149,6 +193,21 @@ export default async function BlogPostPage({
         <span>·</span>
         <span>{post.readTime} read</span>
       </div>
+      {headings.length > 0 && (
+        <nav aria-label="Table of contents" className="pixel-panel mb-10 p-5 sm:p-6">
+          <p className="section-label mb-4">In this guide</p>
+          <ol className="grid gap-3 text-sm sm:grid-cols-2">
+            {headings.map((heading, index) => (
+              <li key={heading}>
+                <a href={`#${headingId(heading)}`} className="flex gap-3 leading-relaxed text-muted transition-colors hover:text-accent">
+                  <span aria-hidden="true" className="font-mono text-accent-3">{String(index + 1).padStart(2, "0")}</span>
+                  {heading}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
       <div className="article-content text-base">
         <MDXRemote
           source={post.content}

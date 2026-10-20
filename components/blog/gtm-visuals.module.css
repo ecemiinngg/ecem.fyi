@@ -1,0 +1,31 @@
+.panel { margin: 1.75rem 0; padding: clamp(1rem, 3vw, 1.5rem); border: 2px solid var(--border); background: var(--background-alt); box-shadow: 5px 5px 0 #03040b; }
+.figureLabel { margin-bottom: 1.25rem; color: var(--accent); font: 600 .65rem/1.8 var(--font-mono), monospace; letter-spacing: .1em; text-transform: uppercase; }
+.comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.flow { min-width: 0; }
+.label { margin-bottom: 1rem; color: var(--accent-2); font: 500 .75rem/1.6 var(--font-mono), monospace; }
+.steps { list-style: none; padding: 0; margin: 0; }
+.steps li { position: relative; border: 1px solid var(--border); padding: .85rem .6rem; background: var(--background); text-align: center; color: var(--foreground); font: .75rem/1.65 var(--font-mono), monospace; }
+.steps li + li { margin-top: 1.9rem; }
+.steps li + li::before { content: '↓'; position: absolute; bottom: calc(100% + .3rem); left: 0; width: 100%; color: var(--accent); font-size: 1rem; }
+.steps li:last-child { border-color: var(--accent-3); }
+.branch { text-align: center; margin: .3rem 0; color: var(--accent-3); }
+.destinations { display: flex; flex-wrap: wrap; gap: .4rem; justify-content: center; list-style: none; padding: 0; margin: 0; }
+.destinations li { flex: 1; padding: .65rem .35rem; border: 1px solid var(--accent-3); background: var(--background); color: var(--accent-3); text-align: center; font: .7rem/1.6 var(--font-mono), monospace; }
+.note { color: var(--muted); font-size: .75rem; line-height: 1.7; margin-top: .85rem; }
+.caption { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: .75rem; line-height: 1.8; color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: .7rem 1.3rem; font: .7rem/1.6 var(--font-mono), monospace; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: .5rem; }
+.legend i { width: .65rem; height: .65rem; display: inline-block; }
+.before { background: var(--accent-2); }
+.after { background: var(--accent-3); }
+.metric { margin-top: 1.6rem; }
+.metricTitle { color: var(--foreground); font-size: .85rem; margin-bottom: .6rem; }
+.axis { display: flex; justify-content: space-between; margin: 0 4.6rem .35rem 5.5rem; font: .6rem/1.5 var(--font-mono), monospace; color: var(--muted); }
+.barRow { display: grid; grid-template-columns: 5rem minmax(0, 1fr) 4.1rem; align-items: center; gap: .5rem; margin-top: .5rem; font: .65rem/1.6 var(--font-mono), monospace; }
+.barLabel { color: var(--muted); }
+.track { background: var(--background); }
+.track > div { height: 1.1rem; }
+.value { text-align: right; white-space: nowrap; color: var(--foreground); }
+.integrity { margin-top: 1.5rem; padding: .8rem; border: 1px solid var(--border); color: var(--muted); font: .7rem/1.8 var(--font-mono), monospace; }
+.integrity strong { color: var(--accent-3); }
+@media (max-width: 520px) { .comparison { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; } .barRow { grid-template-columns: 4.5rem minmax(0, 1fr) 3.6rem; gap: .35rem; font-size: .6rem; } .axis { margin-left: 4.85rem; margin-right: 3.95rem; } }

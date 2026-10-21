@@ -1,4 +1,5 @@
 import { optimizedGtmPost } from "./optimized-gtm-post";
+import { enhancedConversionsPost } from "./enhanced-conversions-post";
 
 export type BlogCategory =
   | "Analytics"
@@ -21,6 +22,7 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  enhancedConversionsPost,
   optimizedGtmPost,
   {
     slug: "google-tag-manager-october-2026-update",

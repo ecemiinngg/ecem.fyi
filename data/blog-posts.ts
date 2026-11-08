@@ -1,3 +1,4 @@
+import { ga4DataManagerPost } from "./ga4-data-manager-post";
 import { optimizedGtmPost } from "./optimized-gtm-post";
 import { enhancedConversionsPost } from "./enhanced-conversions-post";
 
@@ -22,6 +23,7 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  ga4DataManagerPost,
   enhancedConversionsPost,
   optimizedGtmPost,
   {

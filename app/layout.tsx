@@ -49,17 +49,6 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${jetbrainsMono.variable} ${pixelify.variable} ${pressStart.variable} h-full antialiased`}
     >
-      <head>
-        <script
-          async
-          src="https://collect.ecem.fyi/tracker.js"
-          data-host-url="https://collect.ecem.fyi"
-          data-tenant-id="e4852499-1134-4f27-b64a-29a9237bf08f"
-          data-source-id="2db31612-8d89-4bec-ac92-01a5de7c2f6f"
-          data-auto-track="true"
-          data-spa="true"
-        />
-      </head>
       <GoogleTagManager gtmId="GTM-T7PSRCZK" />
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <noscript>
